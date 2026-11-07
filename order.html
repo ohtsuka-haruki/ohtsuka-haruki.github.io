@@ -73,9 +73,13 @@
 <p style="margin-top:1.2em;"><a class="btn-dark" href="index.html#shop">GALLERY &amp; SHOP を見る</a></p>
 <!-- TODO: 実物はオーダー専用ギャラリー（画像一覧）。画像が揃い次第ここに差し替え -->
 
+<h2>ゲチョボ☆魂のハガキについて</h2>
+<p>ハガキはすべて手書きの一点物です。気に入った言葉があれば、同じ言葉を新たに書く「再制作」のご相談ができます（字も余白も、その時だけのものになります）。展示・イベントでのライブ制作のご相談もこちらから。</p>
+<p style="margin-top:1.2em;"><a class="btn-dark" href="#order-form">フォームで相談する</a></p>
+
 <h2>オーダー専用フォーム</h2>
 <!-- 表側のみ。裏側（送信処理）は Phase E で接続 -->
-<form class="contact-form order-form" action="#" method="post" onsubmit="alert('現在は試作中のため送信できません。'); return false;">
+<form id="order-form" class="contact-form order-form" action="#" method="post" onsubmit="alert('現在は試作中のため送信できません。'); return false;">
 <label for="o-type">ご依頼内容 / Inquiry Type <span class="req">*</span></label>
 <select id="o-type" name="type" required>
 <option value="">選択してください。Please select</option>
