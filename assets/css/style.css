@@ -296,9 +296,11 @@ a { color: inherit; }
 }
 .work-title-card .en-title { font-family: var(--serif); font-style: italic; color: var(--ink-soft); font-size: 0.9em; margin-top: 6px; }
 .back-pill {
-  display: inline-block; background: var(--red); color: #fff; font-size: 13px; letter-spacing: 0.2em;
-  text-decoration: none; padding: 10px 34px; border-radius: 999px; box-shadow: 0 4px 16px rgba(0,0,0,0.22);
+  display: inline-block; background: #d32d25; color: #fff; font-size: 13.5px; letter-spacing: 0.32em;
+  text-decoration: none; padding: 15px 44px; border-radius: 999px; box-shadow: 0 4px 16px rgba(0,0,0,0.22);
+  transition: all .25s;
 }
+.back-pill:hover { background: #b8231c; transform: translateY(-2px); }
 .back-row { text-align: center; margin: 36px 0 64px; }
 .viewer-dark { background: #111; padding: clamp(14px, 3vw, 34px); max-width: 860px; margin: 0 auto; }
 .viewer-dark img, .viewer-dark iframe { margin: 0 auto; background: #fff; }
