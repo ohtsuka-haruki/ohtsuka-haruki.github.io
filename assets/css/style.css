@@ -707,7 +707,7 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 10px); }
 
 /* 隙間もグラデーションで埋める：エッセイカード全体を1本の降下グラデーションに（2026-11-06 本人指示） */
 .about-card.essay-card {
-  background: linear-gradient(180deg, #EEEEEE 0%, #E4DCC6 30%, #D5C6A1 62%, #131210 87%, #131210 100%);
+  background: linear-gradient(180deg, #EEEEEE 0%, #D9DFDD 30%, #93A8AD 58%, #33555E 82%, #131F24 100%);
 }
 .essay-card .room.r1, .essay-card .room.r2, .essay-card .room.r3 {
   background: transparent; box-shadow: none;
