@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="cream">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ゲチョボ⭐︎かるた 読み札サイト</title>
+<style>
+  /* ===== テーマ定義（色の検討用） ===== */
+  :root, [data-theme="cream"] {
+    --paper: #f6f1e7;
+    --paper-deep: #efe7d6;
+    --glow: #fbf7ec;
+    --ink: #2a251d;
+    --ink-soft: #6f6455;
+    --line: #ddd2bd;
+    --accent: #bc3f2a;
+    --accent-dark: #a03322;
+    --accent-shadow: rgba(160, 60, 35, 0.30);
+    --card-bg: #fffdf8;
+    --card-ink: #2a251d;
+    --card-soft: #6f6455;
+    --card-line: #ddd2bd;
+    --panel-bg: rgba(255, 253, 248, 0.65);
+    --list-bg: #ffffff;
+    --list-line: #e9e1cf;
+    --group-bg: #faf0e8;
+    --group-ink: #a03322;
+    --track: #e9e0cb;
+    --track-active: #fffdf8;
+    --progress-track: #e7ddc9;
+    --empty: #b3a68d;
+  }
+  [data-theme="mono"] {
+    --paper: #f4f4f2;
+    --paper-deep: #e9e9e6;
+    --glow: #ffffff;
+    --ink: #1d1d1d;
+    --ink-soft: #6d6d6d;
+    --line: #d5d5d2;
+    --accent: #1d1d1d;
+    --accent-dark: #000000;
+    --accent-shadow: rgba(0, 0, 0, 0.25);
+    --card-bg: #ffffff;
+    --card-ink: #1d1d1d;
+    --card-soft: #6d6d6d;
+    --card-line: #d5d5d2;
+    --panel-bg: rgba(255, 255, 255, 0.7);
+    --list-bg: #ffffff;
+    --list-line: #e2e2e0;
+    --group-bg: #f0f0ee;
+    --group-ink: #1d1d1d;
+    --track: #e3e3e1;
+    --track-active: #ffffff;
+    --progress-track: #e4e4e2;
+    --empty: #a9a9a6;
+  }
+  [data-theme="sumi"] {
+    --paper: #1b1c22;
+    --paper-deep: #101116;
+    --glow: #26272f;
+    --ink: #ece5d3;
+    --ink-soft: #a89e88;
+    --line: #3c3d46;
+    --accent: #a8842c;
+    --accent-dark: #8f6f22;
+    --accent-shadow: rgba(0, 0, 0, 0.5);
+    --card-bg: #fdfaf1;
+    --card-ink: #2a251d;
+    --card-soft: #6f6455;
+    --card-line: #ddd2bd;
+    --panel-bg: rgba(255, 255, 255, 0.06);
+    --list-bg: #23242b;
+    --list-line: #3c3d46;
+    --group-bg: #2c2d35;
+    --group-ink: #d9b45c;
+    --track: #2a2b33;
+    --track-active: #fdfaf1;
+    --progress-track: #33343d;
+    --empty: #b3a68d;
+  }
+
+  html {
+    /* スクロールバーの有無で横幅が変わらないように、バーの溝を常に確保する */
+    scrollbar-gutter: stable;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    overflow-x: clip;
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+    background: var(--paper);
+    background-image: radial-gradient(ellipse at 20% 10%, var(--glow) 0%, var(--paper) 55%, var(--paper-deep) 100%);
+    color: var(--ink);
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  *, *:before, *:after { box-sizing: inherit; }
+  body { padding: 16px 12px 32px; }
+
+  .container { width: 100%; max-width: 460px; margin: 0 auto; }
+
+  /* ===== ヘッダー：3行構成 ===== */
+  header { text-align: center; margin: 4px 0 14px; }
+  .brand {
+    font-family: "Hiragino Mincho ProN", "Hiragino Mincho Pro", "YuMincho", "Yu Mincho", "Noto Serif JP", serif;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    line-height: 1.25;
+  }
+  .product {
+    font-family: "Hiragino Mincho ProN", "Hiragino Mincho Pro", "YuMincho", "Yu Mincho", "Noto Serif JP", serif;
+    font-size: 17px;
+    letter-spacing: 0.3em;
+    margin-top: 3px;
+    line-height: 1.3;
+  }
+  .role {
+    font-size: 10.5px;
+    letter-spacing: 0.46em;
+    color: var(--ink-soft);
+    margin-top: 6px;
+  }
+
+  /* ===== テーマ切替（検討用） ===== */
+  .theme-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .theme-label { font-size: 10.5px; color: var(--ink-soft); letter-spacing: 0.14em; margin-right: 2px; }
+  .theme-btn {
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .theme-btn.active {
+    background: var(--card-bg);
+    color: var(--ink);
+    border-color: var(--accent);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+  }
+
+  /* ===== 読み札：高さ固定（改行でUIが動かない） ===== */
+  .card-display {
+    background: var(--card-bg);
+    border: 1px solid var(--card-line);
+    border-radius: 6px;
+    height: 348px;
+    padding: 30px 22px 18px;
+    margin-bottom: 16px;
+    box-shadow: 0 10px 24px rgba(60, 45, 20, 0.15), 0 2px 5px rgba(60, 45, 20, 0.08);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-display::before {
+    content: "読み札";
+    position: absolute;
+    top: 10px; left: 14px;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--card-soft);
+  }
+  .card-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 0;
+  }
+  .card-image {
+    max-width: 100%;
+    max-height: 216px;
+    border-radius: 4px;
+    display: none;
+    object-fit: contain;
+  }
+  .card-text {
+    max-width: 100%;
+    font-family: "Hiragino Mincho ProN", "Hiragino Mincho Pro", "YuMincho", "Yu Mincho", "Noto Serif JP", serif;
+    font-size: 23px;
+    font-weight: 600;
+    color: var(--card-ink);
+    line-height: 1.65;
+    letter-spacing: 0.04em;
+    text-align: center;
+    word-break: break-all;
+    animation: cardIn 0.35s ease-out;
+  }
+  .card-text.long { font-size: 18px; line-height: 1.7; }
+  .card-text.xlong { font-size: 15px; line-height: 1.7; }
+  .empty-text {
+    font-family: inherit;
+    color: var(--empty);
+    font-size: 14px;
+    font-weight: normal;
+    letter-spacing: 0.08em;
+  }
+  .card-subtext {
+    font-size: 11px;
+    color: var(--card-soft);
+    border-top: 1px dashed var(--card-line);
+    padding-top: 8px;
+    margin-top: 10px;
+    width: 100%;
+    min-height: 36px;
+    line-height: 1.5;
+    text-align: center;
+    visibility: hidden;
+  }
+  .card-subtext.show { visibility: visible; }
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(6px) scale(0.985); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* ===== 操作ボタン ===== */
+  .btn-group { display: flex; gap: 10px; margin-bottom: 12px; }
+  .btn {
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.08s;
+    font-family: inherit;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary {
+    flex: 1;
+    padding: 17px 12px;
+    font-size: 17px;
+    letter-spacing: 0.15em;
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 4px 10px var(--accent-shadow);
+  }
+  .btn-primary:hover { background: var(--accent-dark); }
+  .btn-reset {
+    padding: 17px 18px;
+    font-size: 14px;
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+  }
+
+  /* ===== 遊び方モード切替 ===== */
+  .mode-switch {
+    display: flex;
+    gap: 3px;
+    background: var(--track);
+    border-radius: 10px;
+    padding: 3px;
+    margin-bottom: 10px;
+  }
+  .mode-btn {
+    flex: 1;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    padding: 8px 4px 7px;
+    cursor: pointer;
+    font-family: inherit;
+    color: var(--ink-soft);
+    line-height: 1.25;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  .mode-btn .mode-name { display: block; font-size: 13px; font-weight: bold; letter-spacing: 0.08em; }
+  .mode-btn .mode-sub { display: block; font-size: 10px; margin-top: 1px; }
+  .mode-btn.active {
+    background: var(--track-active);
+    color: var(--card-ink);
+    box-shadow: 0 1px 4px rgba(60, 45, 20, 0.18);
+  }
+  .mode-btn.active .mode-name { color: var(--accent-dark); }
+  [data-theme="sumi"] .mode-btn.active .mode-name { color: var(--accent-dark); }
+
+  /* ===== 残り枚数＋進み具合 ===== */
+  .meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 8px;
+    padding: 0 2px;
+  }
+  .status { font-size: 12px; color: var(--ink-soft); letter-spacing: 0.06em; }
+  .progress {
+    height: 4px;
+    background: var(--progress-track);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 18px;
+  }
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.35s ease;
+  }
+
+  /* ===== 持ち札設定：開いた分だけ高さが伸びる ===== */
+  details.settings-accordion {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--panel-bg);
+    overflow: hidden;
+  }
+  details.settings-accordion summary {
+    padding: 12px 14px;
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--ink-soft);
+    cursor: pointer;
+    user-select: none;
+    letter-spacing: 0.05em;
+  }
+  .settings-content { padding: 4px 10px 12px; }
+  .filter-controls { display: flex; gap: 6px; margin-bottom: 8px; }
+  .select-btn {
+    flex: 1;
+    font-size: 11px;
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    padding: 7px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--ink-soft);
+    font-family: inherit;
+  }
+  .checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 6px;
+    background: var(--list-bg);
+    border: 1px solid var(--list-line);
+    border-radius: 6px;
+    /* 高さ固定をやめ、中身の分だけ伸びる（ページ全体がスクロールする） */
+  }
+  .group-header-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--group-ink);
+    background: var(--group-bg);
+    padding: 6px 8px;
+    border-radius: 4px;
+    margin-top: 4px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    user-select: none;
+    margin-left: 10px;
+    padding: 3px 0;
+    color: var(--ink);
+  }
+  [data-theme="sumi"] .check-item { color: var(--ink); }
+  input[type="checkbox"] { accent-color: var(--accent); width: 16px; height: 16px; flex: none; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="brand">ゲチョボ⭐︎魂</div>
+    <div class="product">ゲチョボ⭐︎かるた</div>
+    <div class="role">読み札サイト</div>
+  </header>
+
+  <!-- 色の検討用テーマ切替 -->
+  <div class="theme-row">
+    <span class="theme-label">色の検討</span>
+    <button class="theme-btn active" data-set-theme="cream">クリーム</button>
+    <button class="theme-btn" data-set-theme="mono">白黒</button>
+    <button class="theme-btn" data-set-theme="sumi">墨と金</button>
+  </div>
+
+  <!-- 読み札エリア（高さ固定） -->
+  <div class="card-display">
+    <div class="card-main">
+      <img id="cardImage" class="card-image" src="" alt="札の画像">
+      <div class="card-text empty-text" id="displayText">「次の札を引く」を押してください</div>
+    </div>
+    <div class="card-subtext" id="cardSubtext"></div>
+  </div>
+
+  <!-- 操作ボタン -->
+  <div class="btn-group">
+    <button class="btn btn-primary" id="drawBtn">次の札を引く</button>
+    <button class="btn btn-reset" id="resetBtn">リセット</button>
+  </div>
+
+  <!-- 遊び方モード切替 -->
+  <div class="mode-switch" role="group" aria-label="遊び方モード">
+    <button class="mode-btn active" id="modeGechobo">
+      <span class="mode-name">ゲチョボ式</span>
+      <span class="mode-sub">自分で読み上げてから取る</span>
+    </button>
+    <button class="mode-btn" id="modeNormal">
+      <span class="mode-name">通常モード</span>
+      <span class="mode-sub">スマホが読み上げる</span>
+    </button>
+  </div>
+
+  <!-- 残り枚数＋進み具合 -->
+  <div class="meta-row">
+    <div class="status" id="statusText">残り枚数: - / -</div>
+  </div>
+  <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+
+  <!-- 使用する札の選択 -->
+  <details class="settings-accordion">
+    <summary>使用する札を選択（持ち札を設定する）</summary>
+    <div class="settings-content">
+      <div class="filter-controls">
+        <button class="select-btn" onclick="toggleAll(true)">すべて選択</button>
+        <button class="select-btn" onclick="toggleAll(false)">すべて解除</button>
+      </div>
+      <div class="checklist" id="checklist">
+        <!-- JSで動的生成 -->
+      </div>
+    </div>
+  </details>
+</div>
+
+<script>
+  const cardsData = {
+    1: [
+      { text: "ゲチョボ⭐︎魂", img: "" },
+      { text: "マジカルバナナ バナナといったら運命", img: "" },
+      { text: "ホワイトノイズvsブラックノイズvs梅子さん(82)", img: "" },
+      { text: "オペラ風かえるの歌", img: "" },
+      { text: "寝る前に「ファッ、ファッ、ホァッ、ディエン！！ディエン！！」って言うと良いと思います。", img: "" },
+      { text: "500(ごっぴゃく)メートル先、幸福", img: "" },
+      { text: "うさぎのうーたん 居(お)らん。 オランウータン", img: "" },
+      { text: "おしっこボンボヤージュ", img: "" },
+      { text: "ディメンション反復横跳び", img: "" },
+      { text: "私のお名前はちゃんぽんマン啓三。金魚裏返し太郎でもある", img: "" },
+      { text: "脇にお茶を注がないでね。", img: "" },
+      { text: "ぴちょれ パたぱてゃ ギョリマヌ空師", img: "" },
+      { text: "絡まった ホットケーキ 逆ピカソ", img: "" },
+      { text: "ほがらカラス ピッショ・黒味ちゃん たまごみたい", img: "" },
+      { text: "ぱんろっちょ 今宵は在してる？区分によっては、そう。", img: "" },
+      { text: "50円のソフトクリーム 後輩に買ってやる いいよ、いいよ。先輩が出すもんだし", img: "" },
+      { text: "然被(もひ)する", img: "" },
+      { text: "ングングングングンカカカカ漢方第二公園", img: "" },
+      { text: "クオリティ重視の立ち食い蕎麦", img: "" },
+      { text: "効率重視のニート", img: "" },
+      { text: "プン仏", img: "" },
+      { text: "犬のひげを認識したら勝ち。猫のベロと目があったら負け", img: "" },
+      { text: "どうしてチクチク言葉をロココ調に美しくするの？", img: "" },
+      { text: "ポロポロ落ちる海苔の破片は床のタイルを活気づけ、重力のままに舞う、スズメが食らい、翁はこき、私が笑む。精神が加速するサイクルとはこれを指す。", img: "" },
+      { text: "クロワッサンの発音むずいから「からし」って言うね。", img: "" },
+      { text: "あなたの足を引っ張ろうとする人がいるなら、それは肉アレイです。筋トレだね", img: "" },
+      { text: "全校集会中 息を止める遊びをしてた奴、全員一軍ね", img: "" },
+      { text: "硬軟骨ヘルニア！！", img: "" },
+      { text: "アホアホ学校、歩道橋観察会(年13回)", img: "" },
+      { text: "灰色になったら柱（ぱしら）に説教しよう", img: "" }
+    ],
+    2: [
+      // 第2弾を追加する場合はここに同じ形式で書き足してください
+    ]
+  };
+
+  let activeDeck = [];
+  let selectedCards = [];
+  let mode = 'gechobo'; // 'gechobo' = 自分で読み上げる / 'normal' = スマホが読み上げる
+
+  const checklistEl = document.getElementById('checklist');
+  const drawBtn = document.getElementById('drawBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const displayText = document.getElementById('displayText');
+  const cardSubtext = document.getElementById('cardSubtext');
+  const cardImage = document.getElementById('cardImage');
+  const statusText = document.getElementById('statusText');
+  const progressBar = document.getElementById('progressBar');
+  const modeGechoboBtn = document.getElementById('modeGechobo');
+  const modeNormalBtn = document.getElementById('modeNormal');
+
+  /* テーマ切替（色の検討用） */
+  document.querySelectorAll('[data-set-theme]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.dataset.theme = btn.dataset.setTheme;
+      document.querySelectorAll('[data-set-theme]').forEach(b => b.classList.toggle('active', b === btn));
+    });
+  });
+
+  function initChecklist() {
+    checklistEl.innerHTML = '';
+
+    Object.keys(cardsData).forEach(groupNum => {
+      const headerLabel = document.createElement('label');
+      headerLabel.className = 'group-header-label';
+
+      const groupCheckbox = document.createElement('input');
+      groupCheckbox.type = 'checkbox';
+      groupCheckbox.dataset.group = groupNum;
+      groupCheckbox.checked = (groupNum == 1);
+
+      groupCheckbox.addEventListener('change', (e) => {
+        const isChecked = e.target.checked;
+        const childCheckboxes = checklistEl.querySelectorAll(`input.item-checkbox[data-group="${groupNum}"]`);
+        childCheckboxes.forEach(cb => cb.checked = isChecked);
+        handleCheckChange();
+      });
+
+      headerLabel.appendChild(groupCheckbox);
+      headerLabel.appendChild(document.createTextNode(`第 ${groupNum} 弾`));
+      checklistEl.appendChild(headerLabel);
+
+      cardsData[groupNum].forEach((cardObj) => {
+        const label = document.createElement('label');
+        label.className = 'check-item';
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.className = 'item-checkbox';
+        checkbox.value = JSON.stringify(cardObj);
+        checkbox.dataset.group = groupNum;
+        checkbox.checked = (groupNum == 1);
+
+        checkbox.addEventListener('change', () => {
+          updateGroupHeaderState(groupNum);
+          handleCheckChange();
+        });
+
+        label.appendChild(checkbox);
+        label.appendChild(document.createTextNode(cardObj.text));
+        checklistEl.appendChild(label);
+      });
+    });
+
+    resetGame();
+  }
+
+  function updateGroupHeaderState(groupNum) {
+    const headerCb = checklistEl.querySelector(`input[type="checkbox"][data-group="${groupNum}"]`);
+    const childCbs = checklistEl.querySelectorAll(`input.item-checkbox[data-group="${groupNum}"]`);
+    if (!headerCb || childCbs.length === 0) return;
+    headerCb.checked = Array.from(childCbs).every(cb => cb.checked);
+  }
+
+  function handleCheckChange() {
+    updateSelectedCards();
+    resetGame();
+  }
+
+  function updateSelectedCards() {
+    const checkboxes = checklistEl.querySelectorAll('input.item-checkbox');
+    selectedCards = Array.from(checkboxes)
+      .filter(cb => cb.checked)
+      .map(cb => JSON.parse(cb.value));
+  }
+
+  function toggleAll(selectAll) {
+    const allCheckboxes = checklistEl.querySelectorAll('input[type="checkbox"]');
+    allCheckboxes.forEach(cb => cb.checked = selectAll);
+    handleCheckChange();
+  }
+
+  function shuffle(array) {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function speak(text) {
+    if (mode !== 'normal' || !('speechSynthesis' in window)) return;
+    try {
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'ja-JP';
+      u.rate = 0.95;
+      speechSynthesis.speak(u);
+    } catch (e) { /* 読み上げできない環境では黙って続行 */ }
+  }
+
+  function resetGame() {
+    if ('speechSynthesis' in window) { try { speechSynthesis.cancel(); } catch (e) {} }
+    updateSelectedCards();
+    activeDeck = shuffle(selectedCards);
+
+    cardImage.style.display = 'none';
+    cardSubtext.classList.remove('show');
+    cardSubtext.textContent = '';
+    displayText.style.display = 'block';
+    displayText.className = 'card-text empty-text';
+    displayText.textContent = selectedCards.length === 0
+      ? '札が選択されていません'
+      : '「次の札を引く」を押してください';
+    updateStatus();
+  }
+
+  function updateStatus() {
+    statusText.textContent = `残り枚数: ${activeDeck.length} / ${selectedCards.length}`;
+    const total = selectedCards.length;
+    const done = total - activeDeck.length;
+    progressBar.style.width = total > 0 ? `${(done / total) * 100}%` : '0%';
+  }
+
+  function drawCard() {
+    if (selectedCards.length === 0) {
+      alert('持っている札を1つ以上チェックしてください。');
+      return;
+    }
+
+    if (activeDeck.length === 0) {
+      cardImage.style.display = 'none';
+      cardSubtext.classList.remove('show');
+      displayText.style.display = 'block';
+      displayText.className = 'card-text empty-text';
+      displayText.textContent = 'すべての読み札を読み上げました';
+      updateStatus();
+      return;
+    }
+
+    const drawnCard = activeDeck.pop();
+
+    if (drawnCard.img && drawnCard.img.trim() !== "") {
+      cardImage.src = drawnCard.img;
+      cardImage.style.display = 'block';
+      displayText.style.display = 'none';
+    } else {
+      cardImage.style.display = 'none';
+      displayText.style.display = 'block';
+      const len = drawnCard.text.length;
+      displayText.className = 'card-text' + (len > 90 ? ' xlong' : len > 40 ? ' long' : '');
+      displayText.textContent = drawnCard.text;
+      displayText.style.animation = 'none';
+      void displayText.offsetWidth;
+      displayText.style.animation = '';
+    }
+
+    cardSubtext.textContent = `活字: ${drawnCard.text}`;
+    cardSubtext.classList.add('show');
+
+    speak(drawnCard.text);
+    updateStatus();
+  }
+
+  function setMode(next) {
+    mode = next;
+    modeGechoboBtn.classList.toggle('active', mode === 'gechobo');
+    modeNormalBtn.classList.toggle('active', mode === 'normal');
+    if (mode === 'gechobo' && 'speechSynthesis' in window) { try { speechSynthesis.cancel(); } catch (e) {} }
+  }
+  modeGechoboBtn.addEventListener('click', () => setMode('gechobo'));
+  modeNormalBtn.addEventListener('click', () => setMode('normal'));
+
+  drawBtn.addEventListener('click', drawCard);
+  resetBtn.addEventListener('click', resetGame);
+
+  initChecklist();
+</script>
+
+</body>
+</html>
