@@ -467,7 +467,7 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 10px); }
 .hero h1.hero-name { line-height: 0; }
 .hero h1.hero-name img {
   display: block; width: min(1170px, 94vw); height: auto;
-  filter: drop-shadow(0 2px 22px rgba(0,0,0,0.45));
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.60)) drop-shadow(0 3px 20px rgba(0,0,0,0.40));
 }
 
 
@@ -775,3 +775,13 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 10px); }
 
 /* アンカー移動時に見出しが固定ヘッダーに隠れないように（2026-11-06） */
 section[id] { scroll-margin-top: 84px; }
+
+/* ---------- トップのゲチョボ帯（白） ---------- */
+.gecho-band { position: relative; overflow: hidden; background: #fff; color: var(--ink); padding: clamp(76px, 12vh, 128px) 0; }
+.gecho-band::before { content: ""; position: absolute; inset: 0; background: url("../../gechobo/img/hagaki_mosaic.jpg") center / cover; }
+.gecho-band::after { content: ""; position: absolute; inset: 0; background: rgba(255,255,255,0.88); }
+.gecho-band .wrap { position: relative; z-index: 2; text-align: center; }
+.gecho-band-label { font-family: "Cinzel", serif; font-size: 13px; letter-spacing: 0.42em; color: var(--ink-soft); }
+.gecho-band-title { font-family: var(--serif); font-weight: 500; font-size: clamp(42px, 8vw, 72px); letter-spacing: 0.1em; margin-top: 20px; }
+.gecho-band-title .star { color: var(--red); }
+.gecho-band-lead { font-family: var(--serif); font-size: clamp(16px, 2.4vw, 20px); letter-spacing: 0.14em; margin-top: 22px; }
