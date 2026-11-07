@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja" data-lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ゲチョボ☆魂 / Gechobo Damashii：大塚陽暉</title>
+<meta name="description" content="ゲチョボ☆魂は、意味のない言葉をハガキに書く作品群です。Instagramで毎日投稿中。展示・制作・取材のご依頼はこちらから。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Shippori+Mincho:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<style>
+body { background: #fff; color: var(--ink); }
+.gx-sec { padding: clamp(72px, 11vh, 120px) 0; }
+.gx-label { font-family: "Cinzel", serif; font-size: 13px; letter-spacing: 0.42em; text-align: center; color: var(--ink-soft); }
+.gx-label::after { content: ""; display: block; width: 44px; height: 1px; background: var(--ink); margin: 16px auto 0; }
+.gx-h2 { font-family: var(--serif); font-weight: 500; text-align: center; font-size: clamp(26px, 4.6vw, 38px); letter-spacing: 0.14em; margin-top: 30px; }
+.gx-body { max-width: 700px; margin: 34px auto 0; }
+.gx-body p + p { margin-top: 1.2em; }
+.gx-btnrow { text-align: center; margin-top: 40px; }
+.gx-btn { display: inline-block; border: 1px solid var(--ink); color: var(--ink); background: transparent; padding: 13px 34px; border-radius: 999px; text-decoration: none; font-size: 14px; letter-spacing: 0.12em; transition: all .25s; }
+.gx-btn:hover { background: var(--ink); color: #fff; }
+.gx-btn.solid { background: var(--ink); color: #fff; }
+.gx-btn.solid:hover { background: #333; }
+/* HERO */
+.gx-hero { position: relative; overflow: hidden; padding: calc(var(--header-h) + clamp(70px, 12vh, 130px)) 0 clamp(80px, 12vh, 130px); }
+.gx-hero::before { content: ""; position: absolute; inset: 0; background: url("img/hagaki_mosaic.jpg") center / cover; }
+.gx-hero::after { content: ""; position: absolute; inset: 0; background: rgba(255,255,255,0.87); }
+.gx-hero .wrap { position: relative; z-index: 2; text-align: center; }
+.gx-brand { font-family: var(--serif); letter-spacing: 0.34em; font-size: 13px; color: var(--ink-soft); }
+.gx-title { font-family: var(--serif); font-weight: 500; font-size: clamp(52px, 11vw, 104px); letter-spacing: 0.1em; line-height: 1.25; margin-top: 22px; }
+.gx-title .star { color: var(--red); }
+.gx-lead { margin-top: 30px; font-family: var(--serif); font-size: clamp(17px, 2.8vw, 23px); letter-spacing: 0.16em; }
+.gx-scatter { position: absolute; z-index: 2; font-family: var(--serif); color: rgba(20,20,20,0.5); letter-spacing: 0.1em; }
+.gx-scatter.s1 { top: 16%; left: 4%; transform: rotate(-5deg); font-size: 15px; }
+.gx-scatter.s2 { top: 22%; right: 5%; transform: rotate(4deg); font-size: 13px; }
+.gx-scatter.s3 { bottom: 14%; left: 7%; transform: rotate(3deg); font-size: 13px; }
+.gx-scatter.s4 { bottom: 20%; right: 4%; transform: rotate(-4deg); font-size: 15px; }
+@media (max-width: 640px) { .gx-scatter { display: none; } }
+/* EXHIBITION */
+.gx-photos { margin-top: 44px; }
+.gx-photos .wide img { width: 100%; }
+.gx-photo-row { display: grid; grid-template-columns: 1fr 300px; gap: 18px; margin-top: 18px; align-items: start; }
+@media (max-width: 640px) { .gx-photo-row { grid-template-columns: 1fr; } }
+.gx-cap { font-size: 12.5px; color: var(--ink-soft); letter-spacing: 0.08em; margin-top: 10px; }
+.gx-note { max-width: 700px; margin: 30px auto 0; text-align: center; }
+/* KARUTA */
+.gx-gray { background: var(--gray-band); }
+.karuta-brand { text-align: center; font-family: var(--serif); letter-spacing: 0.2em; color: var(--ink-soft); font-size: 13.5px; margin-top: 34px; }
+.karuta-title { text-align: center; font-family: var(--serif); font-weight: 500; font-size: clamp(38px, 7.4vw, 62px); letter-spacing: 0.08em; margin-top: 8px; }
+.karuta-title .star { color: var(--red); }
+/* CONTACT */
+.gx-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 920px; margin: 44px auto 0; }
+@media (max-width: 760px) { .gx-cards { grid-template-columns: 1fr; } }
+.gx-card { border: 1px solid #dcdcdc; padding: 28px 24px; }
+.gx-card h3 { font-family: var(--serif); font-weight: 500; font-size: 19px; letter-spacing: 0.16em; }
+.gx-card p { font-size: 13.5px; color: var(--ink-soft); margin-top: 10px; line-height: 1.9; }
+.gx-mail { text-align: center; margin-top: 36px; font-size: 14px; letter-spacing: 0.08em; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+<a class="logo" href="../"><img src="../assets/logo-haruki.webp" alt="HARUKI"></a>
+<span class="lang-switch" role="group" aria-label="言語選択 / Language">
+<button type="button" data-setlang="ja" class="active">JA</button><i>/</i><button type="button" data-setlang="en">EN</button>
+</span>
+<button class="burger" aria-label="メニューを開く"><span></span></button>
+</header>
+<nav class="nav-panel" aria-label="サイトメニュー">
+<button class="nav-close" aria-label="閉じる">×</button>
+<a href="../"><b>TOP</b><small>大塚陽暉 トップページ</small></a>
+<a href="./"><b>GECHOBO</b><small>ゲチョボ☆魂</small></a>
+<a href="karuta/"><b>KARUTA</b><small>ゲチョボ☆かるた 読み札</small></a>
+<a href="../#contact"><b>Contact</b><small>お問い合わせ</small></a>
+</nav>
+
+<!-- ============ HERO ============ -->
+<div class="gx-hero">
+<span class="gx-scatter s1">プン仏。</span>
+<span class="gx-scatter s2">膝ポカリ</span>
+<span class="gx-scatter s3">効率重視のニート</span>
+<span class="gx-scatter s4">歯餅タウン</span>
+<div class="wrap">
+<p class="gx-brand">大塚陽暉の作品群</p>
+<h1 class="gx-title">ゲチョボ<span class="star">☆</span>魂</h1>
+<p class="gx-lead">意味のない言葉を、ハガキに書く。</p>
+</div>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<section class="gx-sec">
+<div class="wrap">
+<p class="gx-label">ABOUT</p>
+<div class="gx-body">
+<p>ゲチョボ☆魂は、意味のない言葉をハガキに書く作品群です。言葉は現在も増え続けていて、Instagramで毎日1つずつ投稿しています。</p>
+<p>これらの言葉は、高次元の存在「ゲチョボ様」のお告げだと言われています。確かめる方法は、ありません。</p>
+</div>
+<p class="gx-btnrow"><a class="gx-btn" href="https://www.instagram.com/gechobo_damashii/" target="_blank" rel="noopener">Instagram @gechobo_damashii</a></p>
+</div>
+</section>
+
+<!-- ============ EXHIBITION ============ -->
+<section class="gx-sec" style="padding-top:0;">
+<div class="wrap">
+<p class="gx-label">EXHIBITION</p>
+<h2 class="gx-h2">ハガキの壁</h2>
+<div class="gx-photos">
+<figure class="wide"><img src="img/wall_wide.jpg" alt="ハガキの壁 展示風景"></figure>
+<div class="gx-photo-row">
+<p class="gx-cap" style="margin-top:0;">数百枚のハガキを壁一面に並べる展示形式。言葉はすべて書き手の手書きで、同じ言葉は二つとありません。学祭での展示風景。</p>
+<figure><img src="img/wall_artist.jpg" alt="展示と作家"><figcaption class="gx-cap">展示と作家</figcaption></figure>
+</div>
+</div>
+<p class="gx-note">展示のご依頼・ご相談は、下の「ご依頼」からお気軽にどうぞ。</p>
+</div>
+</section>
+
+<!-- ============ KARUTA ============ -->
+<section class="gx-sec gx-gray">
+<div class="wrap">
+<p class="gx-label">KARUTA</p>
+<p class="karuta-brand">ゲチョボ☆魂</p>
+<h2 class="karuta-title">ゲチョボ<span class="star">☆</span>かるた</h2>
+<div class="gx-body" style="text-align:center;">
+<p>30の言葉が、取り札になりました。<br>
+遊ぶときの読み札は、スマホでひらきます。取る前に、声に出して読むのがルールです。</p>
+</div>
+<p class="gx-btnrow"><a class="gx-btn solid" href="karuta/">読み札をひらく</a></p>
+</div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="gx-sec">
+<div class="wrap">
+<p class="gx-label">CONTACT</p>
+<h2 class="gx-h2">展示・制作・取材のご依頼</h2>
+<div class="gx-cards">
+<div class="gx-card">
+<h3>展示</h3>
+<p>個展・グループ展・イベント出展のご相談。「ハガキの壁」をはじめ、規模に合わせた形式をご提案できます。</p>
+<p class="gx-btnrow" style="text-align:left; margin-top:20px;"><a class="gx-btn" href="../#contact">問い合わせる</a></p>
+</div>
+<div class="gx-card">
+<h3>制作</h3>
+<p>オーダー制作・複製画のご相談は、専用ページから。内容を伺ってお見積もりします。</p>
+<p class="gx-btnrow" style="text-align:left; margin-top:20px;"><a class="gx-btn" href="../order.html">オーダー制作・相談</a></p>
+</div>
+<div class="gx-card">
+<h3>取材</h3>
+<p>メディア取材・掲載のご依頼。作品画像の提供やコメント対応も可能です。</p>
+<p class="gx-btnrow" style="text-align:left; margin-top:20px;"><a class="gx-btn" href="../#contact">問い合わせる</a></p>
+</div>
+</div>
+<p class="gx-mail">メール：<a href="mailto:haruki.artist@gmail.com">haruki.artist@gmail.com</a></p>
+</div>
+</section>
+
+<footer class="site-footer">
+<div class="rule">
+<span>© Haruki Ohtsuka 2026</span>
+<span><a href="../privacy.html">プライバシーポリシー</a>　/　<a href="../terms.html">利用規約</a></span>
+</div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
