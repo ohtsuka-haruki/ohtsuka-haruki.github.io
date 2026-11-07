@@ -44,6 +44,36 @@ body { background: #fff; color: var(--ink); }
 @media (max-width: 640px) { .gx-photo-row { grid-template-columns: 1fr; } }
 .gx-cap { font-size: 12.5px; color: var(--ink-soft); letter-spacing: 0.08em; margin-top: 10px; }
 .gx-note { max-width: 700px; margin: 30px auto 0; text-align: center; }
+/* YOMIAGE */
+.ym-stage { display: grid; grid-template-columns: 330px 1fr; gap: 34px; max-width: 920px; margin: 44px auto 0; align-items: start; }
+.ym-player { position: sticky; top: calc(var(--header-h) + 14px); background: #fff; padding-bottom: 10px; }
+.ym-frame { position: relative; background: #101010; border: 1px solid #dcdcdc; }
+.ym-frame video { display: block; width: 100%; aspect-ratio: 9 / 16; max-height: calc(100vh - var(--header-h) - 196px); object-fit: contain; background: #101010; }
+.ym-start { position: absolute; inset: 0; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; background: rgba(255,255,255,0.89); border: 0; cursor: pointer; font-family: inherit; }
+.ym-play-ic { width: 74px; height: 74px; border-radius: 50%; background: var(--red); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 25px; padding-left: 5px; box-sizing: border-box; }
+.ym-start-tx { font-family: var(--serif); font-size: 17px; letter-spacing: 0.16em; color: var(--ink); }
+.ym-start-sub { font-size: 12px; color: var(--ink-soft); letter-spacing: 0.12em; }
+.ym-now { margin-top: 14px; text-align: center; }
+.ym-no { font-size: 12px; letter-spacing: 0.3em; color: var(--red); }
+.ym-phrase { font-family: var(--serif); font-size: 16px; letter-spacing: 0.07em; line-height: 1.7; margin-top: 5px; }
+.ym-controls { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 14px; }
+.ym-cbtn { border: 1px solid var(--ink); background: transparent; color: var(--ink); border-radius: 999px; padding: 8px 15px; font-size: 12.5px; letter-spacing: 0.08em; cursor: pointer; font-family: inherit; transition: all .2s; }
+.ym-cbtn:hover { background: var(--ink); color: #fff; }
+.ym-cbtn.on { background: var(--ink); color: #fff; }
+.ym-list { list-style: none; }
+.ym-item { display: flex; gap: 14px; align-items: center; width: 100%; text-align: left; background: transparent; border: 0; border-bottom: 1px solid #e7e7e7; padding: 12px 10px; cursor: pointer; font-family: inherit; }
+.ym-item img { width: 46px; height: 82px; object-fit: cover; flex: none; background: #111; }
+.ym-item-no { font-size: 11px; letter-spacing: 0.24em; color: var(--ink-soft); }
+.ym-item-phrase { display: block; font-family: var(--serif); font-size: 15px; letter-spacing: 0.05em; line-height: 1.65; margin-top: 2px; color: var(--ink); }
+.ym-item.active { background: #faf6ee; box-shadow: inset 3px 0 0 var(--red); }
+.ym-item.active .ym-item-no { color: var(--red); }
+.ym-note { max-width: 700px; margin: 32px auto 0; text-align: center; font-size: 13px; color: var(--ink-soft); letter-spacing: 0.06em; line-height: 2; }
+@media (max-width: 860px) {
+.ym-stage { grid-template-columns: 1fr; gap: 26px; }
+.ym-player { top: calc(var(--header-h) + 8px); border-bottom: 1px solid #e7e7e7; }
+.ym-frame { max-width: 330px; margin: 0 auto; }
+.ym-frame video { max-height: 46vh; }
+}
 /* KARUTA */
 .gx-gray { background: var(--gray-band); }
 .karuta-brand { text-align: center; font-family: var(--serif); letter-spacing: 0.2em; color: var(--ink-soft); font-size: 13.5px; margin-top: 34px; }
@@ -120,6 +150,40 @@ body { background: #fff; color: var(--ink); }
 </div>
 </section>
 
+<!-- ============ YOMIAGE ============ -->
+<section class="gx-sec" style="padding-top:0;">
+<div class="wrap">
+<p class="gx-label">YOMIAGE</p>
+<h2 class="gx-h2">読み上げゲチョボ</h2>
+<div class="gx-body" style="text-align:center;">
+<p>カルタ第1弾の言葉を、書き手本人が読み上げます。<br>
+ひとつ終わると、すぐ次が始まります。</p>
+</div>
+<div class="ym-stage">
+<div class="ym-player">
+<div class="ym-frame" id="ymFrame">
+<video id="ymVideo" playsinline preload="metadata" poster="poster/0018.jpg"></video>
+<button class="ym-start" id="ymStart" type="button" aria-label="読み上げをはじめる">
+<span class="ym-play-ic">▶</span>
+<span class="ym-start-tx">読み上げをはじめる</span>
+<span class="ym-start-sub">音が出ます</span>
+</button>
+</div>
+<div class="ym-now"><p class="ym-no" id="ymNo">No.0018</p><p class="ym-phrase" id="ymPhrase">オペラ風かえるの歌</p></div>
+<div class="ym-controls">
+<button class="ym-cbtn" id="ymPrev" type="button">← 前へ</button>
+<button class="ym-cbtn" id="ymToggle" type="button">一時停止</button>
+<button class="ym-cbtn" id="ymNext" type="button">次へ →</button>
+<button class="ym-cbtn" id="ymShuffle" type="button" aria-pressed="false">シャッフル</button>
+<button class="ym-cbtn" id="ymFull" type="button">全画面</button>
+</div>
+</div>
+<ol class="ym-list" id="ymList"></ol>
+</div>
+<p class="ym-note">カルタ第1弾・全30語のうち、動画が用意できた言葉から順に公開しています。</p>
+</div>
+</section>
+
 <!-- ============ KARUTA ============ -->
 <section class="gx-sec gx-gray">
 <div class="wrap">
@@ -176,6 +240,97 @@ body { background: #fff; color: var(--ink); }
 </div>
 </footer>
 
+<script>
+(function () {
+  var YM = [
+    { no: "0018", phrase: "オペラ風かえるの歌" },
+    { no: "0178", phrase: "プン仏" },
+    { no: "0210", phrase: "犬のひげを認識したら勝ち。猫のベロと目があったら負け" },
+    { no: "0266", phrase: "どうしてチクチク言葉をロココ調に美しくするの？" },
+    { no: "0280", phrase: "ポロポロ落ちる海苔の破片は床のタイルを活気づけ、重力のままに舞う、スズメが食らい、翁はこき、私が笑む。精神が加速するサイクルとはこれを指す。" },
+    { no: "0287", phrase: "クロワッサンの発音むずいから「からし」って言うね。" },
+    { no: "0294", phrase: "あなたの足を引っ張ろうとする人がいるなら、それは肉アレイです。筋トレだね" }
+  ];
+  var v = document.getElementById("ymVideo"),
+      startBtn = document.getElementById("ymStart"),
+      noEl = document.getElementById("ymNo"),
+      phEl = document.getElementById("ymPhrase"),
+      listEl = document.getElementById("ymList"),
+      toggleBtn = document.getElementById("ymToggle"),
+      shuffleBtn = document.getElementById("ymShuffle"),
+      frame = document.getElementById("ymFrame");
+  var idx = 0, shuffle = false, started = false;
+  var warmer = document.createElement("video");
+  warmer.preload = "auto"; warmer.muted = true;
+
+  YM.forEach(function (item, i) {
+    var li = document.createElement("li");
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "ym-item";
+    var img = document.createElement("img");
+    img.src = "poster/" + item.no + ".jpg"; img.alt = ""; img.loading = "lazy";
+    var tx = document.createElement("span");
+    var no = document.createElement("span");
+    no.className = "ym-item-no"; no.textContent = "No." + item.no;
+    var ph = document.createElement("span");
+    ph.className = "ym-item-phrase"; ph.textContent = item.phrase;
+    tx.appendChild(no); tx.appendChild(ph);
+    b.appendChild(img); b.appendChild(tx);
+    b.addEventListener("click", function () { start(); load(i, true); });
+    li.appendChild(b); listEl.appendChild(li);
+  });
+
+  function mark() {
+    var items = listEl.querySelectorAll(".ym-item");
+    for (var i = 0; i < items.length; i++) items[i].classList.toggle("active", i === idx);
+  }
+  function nextIdx() {
+    if (shuffle && YM.length > 1) {
+      var n; do { n = Math.floor(Math.random() * YM.length); } while (n === idx);
+      return n;
+    }
+    return (idx + 1) % YM.length;
+  }
+  function load(i, play) {
+    idx = i;
+    var item = YM[idx];
+    v.src = "movie/" + item.no + ".mp4";
+    v.poster = "poster/" + item.no + ".jpg";
+    noEl.textContent = "No." + item.no;
+    phEl.textContent = item.phrase;
+    mark();
+    warmer.src = "movie/" + YM[nextIdx()].no + ".mp4";
+    if (play) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+  }
+  function start() {
+    if (started) return;
+    started = true;
+    startBtn.style.display = "none";
+  }
+  startBtn.addEventListener("click", function () { start(); load(idx, true); });
+  document.getElementById("ymPrev").addEventListener("click", function () { load((idx - 1 + YM.length) % YM.length, started); });
+  document.getElementById("ymNext").addEventListener("click", function () { start(); load(nextIdx(), true); });
+  toggleBtn.addEventListener("click", function () {
+    if (!started) { start(); load(idx, true); return; }
+    if (v.paused) v.play(); else v.pause();
+  });
+  v.addEventListener("play", function () { toggleBtn.textContent = "一時停止"; });
+  v.addEventListener("pause", function () { toggleBtn.textContent = "再生"; });
+  v.addEventListener("ended", function () { load(nextIdx(), true); });
+  shuffleBtn.addEventListener("click", function () {
+    shuffle = !shuffle;
+    shuffleBtn.classList.toggle("on", shuffle);
+    shuffleBtn.setAttribute("aria-pressed", shuffle ? "true" : "false");
+    warmer.src = "movie/" + YM[nextIdx()].no + ".mp4";
+  });
+  document.getElementById("ymFull").addEventListener("click", function () {
+    if (frame.requestFullscreen) frame.requestFullscreen();
+    else if (v.webkitEnterFullscreen) v.webkitEnterFullscreen();
+  });
+  mark();
+  warmer.src = "movie/" + YM[1].no + ".mp4";
+})();
+</script>
 <script src="../assets/js/main.js"></script>
 </body>
 </html>
