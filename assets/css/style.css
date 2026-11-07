@@ -526,7 +526,7 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 10px); }
 .band-logo img { height: 60px; width: auto; }
 .band-mv-label {
   text-align: center; font-family: var(--serif); font-style: italic;
-  letter-spacing: 0.22em; font-size: 15px; color: #cfc9bd; margin-bottom: 16px;
+  letter-spacing: 0.22em; font-size: 15px; color: #cfc9bd; margin: clamp(44px, 8vh, 72px) 0 16px;
 }
 .band-btn { text-align: center; margin-top: 28px; }
 .btn-pill-light {
