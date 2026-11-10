@@ -96,13 +96,71 @@ document.querySelectorAll('.site-header .logo').forEach(function (a) {
   });
 });
 
-// 6) お問い合わせフォーム送信（Google Apps Script 受け口・2026-11-10 接続）
+// 6) お問い合わせフォーム（入力チェック＋送信・GAS受け口、2026-11-10）
 const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbxMc6gOnklZ4ET3XtzSpaCe_epWP8BYrW2KaJUhTkTsTP3ObR4vWnChdZ1mvzEiKu3vuQ/exec";
 document.querySelectorAll("form[data-form-kind]").forEach((form) => {
+  const btn = form.querySelector('button[type="submit"]');
+  const status = form.querySelector(".form-status");
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const fields = [];
+  const addField = (control, check) => {
+    if (!control) return;
+    const errEl = document.createElement("p");
+    errEl.className = "field-error";
+    const anchor = control.closest(".field") || (control.type === "checkbox" ? control.closest("label") : control);
+    anchor.parentNode.insertBefore(errEl, anchor.nextSibling);
+    const f = { control, check, errEl, touched: false };
+    fields.push(f);
+    control.addEventListener("blur", () => { f.touched = true; paint(f); refresh(); });
+    control.addEventListener("input", () => { if (f.touched) paint(f); refresh(); });
+    control.addEventListener("change", () => { if (f.touched) paint(f); refresh(); });
+  };
+  const paint = (f) => {
+    const msg = f.check();
+    if (msg === true) {
+      f.errEl.textContent = "";
+      f.errEl.classList.remove("show");
+      f.control.classList.remove("is-invalid");
+    } else {
+      f.errEl.textContent = msg;
+      f.errEl.classList.add("show");
+      f.control.classList.add("is-invalid");
+    }
+    return msg === true;
+  };
+  addField(form.querySelector('select[name="type"]'),
+    (c) => (c.value !== "" ? true : "ご依頼内容を選択してください"));
+  addField(form.querySelector('input[name="name"]'),
+    (c) => (c.value.trim() !== "" ? true : "お名前・会社名を入力してください"));
+  addField(form.querySelector('input[name="email"]'), (c) => {
+    const v = c.value.trim();
+    if (v === "") return "メールアドレスを入力してください";
+    return emailRe.test(v) ? true : "メールアドレスの形式を確認してください";
+  });
+  addField(form.querySelector('input[name="file_link"]'), (c) => {
+    const v = c.value.trim();
+    if (v === "") return true;
+    try { new URL(v); return true; } catch (e) { return "リンクの形式を確認してください（https://…）"; }
+  });
+  addField(form.querySelector('textarea[name="message"]'),
+    (c) => (c.value.trim() !== "" ? true : "お問い合わせ内容を入力してください"));
+  addField(form.querySelector('label.consent input[type="checkbox"]'),
+    (c) => (c.checked ? true : "プライバシーポリシーへの同意が必要です"));
+  fields.forEach((f) => { f.check = f.check.bind(null, f.control); });
+  const refresh = () => {
+    const ok = fields.every((f) => f.check() === true);
+    if (btn) btn.disabled = !ok;
+    return ok;
+  };
+  refresh();
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const status = form.querySelector(".form-status");
-    const btn = form.querySelector('button[type="submit"]');
+    fields.forEach((f) => { f.touched = true; paint(f); });
+    if (!refresh()) {
+      const firstBad = fields.find((f) => f.check() !== true);
+      if (firstBad) firstBad.control.focus();
+      return;
+    }
     const show = (msg) => { if (status) { status.style.display = "block"; status.textContent = msg; } };
     if (btn) btn.disabled = true;
     show("送信しています…");
@@ -111,10 +169,12 @@ document.querySelectorAll("form[data-form-kind]").forEach((form) => {
       data.set("form_kind", form.dataset.formKind);
       await fetch(FORM_ENDPOINT, { method: "POST", mode: "no-cors", body: data });
       form.reset();
+      fields.forEach((f) => { f.touched = false; paint(f); });
+      refresh();
       show("送信しました。ありがとうございます。内容を確認のうえ、ご記入のメールアドレスへご連絡します。");
     } catch (err) {
       show("送信に失敗しました。お手数ですが、haruki.artist@gmail.com まで直接メールでご連絡ください。");
-      if (btn) btn.disabled = false;
+      refresh();
     }
   });
 });
