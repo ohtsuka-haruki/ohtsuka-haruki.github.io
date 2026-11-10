@@ -79,7 +79,8 @@
 
 <h2>オーダー専用フォーム</h2>
 <!-- 表側のみ。裏側（送信処理）は Phase E で接続 -->
-<form id="order-form" class="contact-form order-form" action="#" method="post" onsubmit="alert('現在は試作中のため送信できません。'); return false;">
+<form id="order-form" class="contact-form order-form" method="post" data-form-kind="order">
+<input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
 <label for="o-type">ご依頼内容 / Inquiry Type <span class="req">*</span></label>
 <select id="o-type" name="type" required>
 <option value="">選択してください。Please select</option>
@@ -100,6 +101,7 @@
 <textarea id="o-msg" name="message" rows="9" required placeholder="ご希望の作品・サイズ・ご予算の目安など、差し支えない範囲でなるべく具体的にご記入ください。"></textarea>
 <label class="consent"><input type="checkbox" required> プライバシーポリシーに同意します / I agree to the Privacy Policy <span class="req">*</span></label>
 <button type="submit">Submit</button>
+<p class="form-status" role="status" aria-live="polite" style="display:none;margin-top:14px;"></p>
 </form>
 </main>
 

@@ -95,3 +95,26 @@ document.querySelectorAll('.site-header .logo').forEach(function (a) {
     }
   });
 });
+
+// 6) お問い合わせフォーム送信（Google Apps Script 受け口・2026-11-10 接続）
+const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbxMc6gOnklZ4ET3XtzSpaCe_epWP8BYrW2KaJUhTkTsTP3ObR4vWnChdZ1mvzEiKu3vuQ/exec";
+document.querySelectorAll("form[data-form-kind]").forEach((form) => {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const status = form.querySelector(".form-status");
+    const btn = form.querySelector('button[type="submit"]');
+    const show = (msg) => { if (status) { status.style.display = "block"; status.textContent = msg; } };
+    if (btn) btn.disabled = true;
+    show("送信しています…");
+    try {
+      const data = new URLSearchParams(new FormData(form));
+      data.set("form_kind", form.dataset.formKind);
+      await fetch(FORM_ENDPOINT, { method: "POST", mode: "no-cors", body: data });
+      form.reset();
+      show("送信しました。ありがとうございます。内容を確認のうえ、ご記入のメールアドレスへご連絡します。");
+    } catch (err) {
+      show("送信に失敗しました。お手数ですが、haruki.artist@gmail.com まで直接メールでご連絡ください。");
+      if (btn) btn.disabled = false;
+    }
+  });
+});

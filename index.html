@@ -306,8 +306,9 @@
 <p class="sec-sub reveal bi"><span class="t-ja">制作のご依頼、作品に関するお問い合わせ、感想はこちらから。</span><span class="t-en">For business inquiries, project commissions, or general messages.</span></p>
 <p class="contact-lead reveal">※個人の鑑賞・お部屋用としての原画オーダー、SOLD OUT作品の再制作、複製画のご購入はオーダー専用ページよりお問い合わせください。どちらに該当するか分からない場合は、まずはお気軽に下のフォームよりお問い合わせください。</p>
 
-<!-- 表側のみ。裏側（送信処理）は Phase E で接続 -->
-<form class="contact-form reveal" action="#" method="post" onsubmit="alert('現在は試作中のため送信できません。'); return false;">
+<!-- 送信処理は assets/js/main.js 経由で GAS 受け口に接続済み -->
+<form class="contact-form reveal" method="post" data-form-kind="business">
+<input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
 <label for="f-type">ご依頼内容 / Inquiry Type <span class="req">*</span></label>
 <select id="f-type" name="type" required>
 <option value="">選択してください。Please select</option>
@@ -330,6 +331,7 @@
 <textarea id="f-msg" name="message" rows="7" required placeholder="ご依頼の概要、使用用途など、差し支えない範囲でなるべく具体的にご記入ください。&#10;&#10;・ご予算の目安&#10;・ご希望のスケジュール（納期）&#10;・使用媒体・用途（MV、書籍、WEB、グッズ等）&#10;・その他ご質問・ご要望"></textarea>
 <label class="consent"><input type="checkbox" required> プライバシーポリシーに同意します / I agree to the Privacy Policy <span class="req">*</span></label>
 <button type="submit">Submit</button>
+<p class="form-status" role="status" aria-live="polite" style="display:none;margin-top:14px;"></p>
 </form>
 
 <div class="order-card reveal">
