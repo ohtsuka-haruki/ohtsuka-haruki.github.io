@@ -32,8 +32,8 @@ body { background: #fff; color: var(--ink); }
 .gx-hero::after { content: ""; position: absolute; inset: 0; background: rgba(255,255,255,0.87); }
 .gx-hero .wrap { position: relative; z-index: 2; text-align: center; }
 .gx-brand { font-family: var(--serif); letter-spacing: 0.34em; font-size: 13px; color: var(--ink-soft); }
-.gx-title { font-family: var(--serif); font-weight: 500; font-size: clamp(52px, 11vw, 104px); letter-spacing: 0.1em; line-height: 1.25; margin-top: 22px; }
-.gx-title .star { color: var(--red); }
+.gx-title { margin-top: 22px; line-height: 1; }
+.gx-title img { width: min(600px, 92%); height: auto; }
 .gx-lead { margin-top: 30px; font-family: var(--serif); font-size: clamp(17px, 2.8vw, 23px); letter-spacing: 0.16em; }
 .gx-scatter { position: absolute; z-index: 2; font-family: var(--serif); color: rgba(20,20,20,0.5); letter-spacing: 0.1em; }
 .gx-scatter.s1 { top: 16%; left: 4%; transform: rotate(-5deg); font-size: 15px; }
@@ -90,10 +90,8 @@ body { background: #fff; color: var(--ink); }
 .gx-card p { font-size: 13.5px; color: var(--ink-soft); margin-top: 10px; line-height: 1.9; }
 .gx-mail { text-align: center; margin-top: 36px; font-size: 14px; letter-spacing: 0.08em; }
 
-/* ページ内目次レール（スマホのみ・スクロール中だけ表示） */
+/* ページ内目次レール（全幅・スクロール中だけ表示） */
 #gx-about, #gx-exhibition, #gx-yomiage, #gx-karuta, #gx-contact { scroll-margin-top: 84px; }
-.gx-toc { display: none; }
-@media (max-width: 860px) {
 .gx-toc { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; position: fixed; right: 10px; top: 50%; transform: translateY(-50%); z-index: 60; pointer-events: none; }
 .gx-toc a { --dx: 0px; display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.55); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); border: 1px solid rgba(20,20,20,0.10); box-shadow: 0 3px 12px rgba(0,0,0,0.07); font-family: var(--serif); font-size: 10.5px; letter-spacing: 0.02em; color: var(--ink-soft); text-decoration: none; text-align: center; line-height: 1.15; opacity: 0; transform: translateX(calc(var(--dx) + 12px)); transition: opacity .35s ease, transform .35s ease; }
 .gx-toc a:nth-child(1) { --dx: 0px; transition-delay: 0s; }
@@ -104,6 +102,9 @@ body { background: #fff; color: var(--ink); }
 .gx-toc.show { pointer-events: auto; }
 .gx-toc.show a { opacity: 1; transform: translateX(var(--dx)); }
 .gx-toc a.on { color: var(--red); font-weight: 700; border-color: rgba(230,0,18,0.55); background: rgba(255,255,255,0.78); }
+@media (min-width: 861px) {
+.gx-toc { right: 28px; gap: 10px; }
+.gx-toc a { width: 56px; height: 56px; font-size: 11.5px; }
 }
 </style>
 <script type="application/ld+json">
@@ -148,7 +149,7 @@ body { background: #fff; color: var(--ink); }
 <span class="gx-scatter s4">歯餅タウン</span>
 <div class="wrap">
 <p class="gx-brand">大塚陽暉の作品群</p>
-<h1 class="gx-title">ゲチョボ<span class="star">☆</span>魂</h1>
+<h1 class="gx-title"><img src="img/gechobo_logo_horizontal.webp" alt="ゲチョボ☆魂"></h1>
 <p class="gx-lead">意味のない言葉を、ハガキに書く。</p>
 </div>
 </div>
