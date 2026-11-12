@@ -90,6 +90,22 @@ body { background: #fff; color: var(--ink); }
 .gx-card h3 { font-family: var(--serif); font-weight: 500; font-size: 19px; letter-spacing: 0.16em; }
 .gx-card p { font-size: 13.5px; color: var(--ink-soft); margin-top: 10px; line-height: 1.9; }
 .gx-mail { text-align: center; margin-top: 36px; font-size: 14px; letter-spacing: 0.08em; }
+
+/* ページ内目次レール（スマホのみ・スクロール中だけ表示） */
+#gx-about, #gx-exhibition, #gx-yomiage, #gx-karuta, #gx-contact { scroll-margin-top: 84px; }
+.gx-toc { display: none; }
+@media (max-width: 860px) {
+.gx-toc { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; position: fixed; right: 10px; top: 50%; transform: translateY(-50%); z-index: 60; pointer-events: none; }
+.gx-toc a { --dx: 0px; display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.55); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); border: 1px solid rgba(20,20,20,0.10); box-shadow: 0 3px 12px rgba(0,0,0,0.07); font-family: var(--serif); font-size: 10.5px; letter-spacing: 0.02em; color: var(--ink-soft); text-decoration: none; text-align: center; line-height: 1.15; opacity: 0; transform: translateX(calc(var(--dx) + 12px)); transition: opacity .35s ease, transform .35s ease; }
+.gx-toc a:nth-child(1) { --dx: 0px; transition-delay: 0s; }
+.gx-toc a:nth-child(2) { --dx: -5px; transition-delay: .04s; }
+.gx-toc a:nth-child(3) { --dx: -8px; transition-delay: .08s; }
+.gx-toc a:nth-child(4) { --dx: -5px; transition-delay: .12s; }
+.gx-toc a:nth-child(5) { --dx: 0px; transition-delay: .16s; }
+.gx-toc.show { pointer-events: auto; }
+.gx-toc.show a { opacity: 1; transform: translateX(var(--dx)); }
+.gx-toc a.on { color: var(--red); font-weight: 700; border-color: rgba(230,0,18,0.55); background: rgba(255,255,255,0.78); }
+}
 </style>
 <script type="application/ld+json">
 {
@@ -143,7 +159,7 @@ body { background: #fff; color: var(--ink); }
 </div>
 
 <!-- ============ ABOUT ============ -->
-<section class="gx-sec">
+<section class="gx-sec" id="gx-about">
 <div class="wrap">
 <p class="gx-label">ABOUT</p>
 <div class="gx-body">
@@ -155,7 +171,7 @@ body { background: #fff; color: var(--ink); }
 </section>
 
 <!-- ============ EXHIBITION ============ -->
-<section class="gx-sec" style="padding-top:0;">
+<section class="gx-sec" style="padding-top:0;" id="gx-exhibition">
 <div class="wrap">
 <p class="gx-label">EXHIBITION</p>
 <h2 class="gx-h2">ハガキの壁</h2>
@@ -171,7 +187,7 @@ body { background: #fff; color: var(--ink); }
 </section>
 
 <!-- ============ YOMIAGE ============ -->
-<section class="gx-sec" style="padding-top:0;">
+<section class="gx-sec" style="padding-top:0;" id="gx-yomiage">
 <div class="wrap">
 <p class="gx-label">YOMIAGE</p>
 <h2 class="gx-h2">読み上げゲチョボ</h2>
@@ -205,7 +221,7 @@ body { background: #fff; color: var(--ink); }
 </section>
 
 <!-- ============ KARUTA ============ -->
-<section class="gx-sec gx-gray">
+<section class="gx-sec gx-gray" id="gx-karuta">
 <div class="wrap">
 <p class="gx-label">KARUTA</p>
 <p class="karuta-brand">ゲチョボ☆魂</p>
@@ -219,7 +235,7 @@ body { background: #fff; color: var(--ink); }
 </section>
 
 <!-- ============ CONTACT ============ -->
-<section class="gx-sec">
+<section class="gx-sec" id="gx-contact">
 <div class="wrap">
 <p class="gx-label">CONTACT</p>
 <h2 class="gx-h2">展示・制作・取材のご依頼</h2>
@@ -352,5 +368,44 @@ body { background: #fff; color: var(--ink); }
 })();
 </script>
 <script src="../assets/js/main.js"></script>
+
+<nav class="gx-toc" id="gxToc" aria-label="ページ内目次">
+<a href="#gx-about">紹介</a>
+<a href="#gx-exhibition">展示</a>
+<a href="#gx-yomiage">読み上げ</a>
+<a href="#gx-karuta">かるた</a>
+<a href="#gx-contact">依頼</a>
+</nav>
+<script>
+(() => {
+  const toc = document.getElementById("gxToc");
+  if (!toc) return;
+  const links = Array.from(toc.querySelectorAll("a"));
+  const secs = links.map((a) => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+  let hideTimer = null;
+  const poke = () => {
+    if (window.scrollY > 200) {
+      toc.classList.add("show");
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(() => toc.classList.remove("show"), 1600);
+    } else {
+      toc.classList.remove("show");
+    }
+  };
+  addEventListener("scroll", poke, { passive: true });
+  links.forEach((a) => a.addEventListener("click", (e) => {
+    const t = document.querySelector(a.getAttribute("href"));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: "smooth" }); }
+  }));
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (en.isIntersecting) {
+        links.forEach((a) => a.classList.toggle("on", a.getAttribute("href") === "#" + en.target.id));
+      }
+    });
+  }, { rootMargin: "-38% 0px -55% 0px" });
+  secs.forEach((sec) => io.observe(sec));
+})();
+</script>
 </body>
 </html>
