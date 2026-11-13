@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ゲチョボ☆かるた 説明書（遊び方）</title>
+<meta name="description" content="ゲチョボ☆かるたの説明書（遊び方）。読み札サイトへのリンクつき。">
+<style>
+  :root {
+    --paper: #f6f1e7;
+    --paper-deep: #efe7d6;
+    --glow: #fbf7ec;
+    --ink: #2a251d;
+    --ink-soft: #6f6455;
+    --line: #ddd2bd;
+    --accent: #bc3f2a;
+    --accent-dark: #a03322;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; width: 100%; min-height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+    background: var(--paper);
+    background-image: radial-gradient(ellipse at 20% 10%, var(--glow) 0%, var(--paper) 55%, var(--paper-deep) 100%);
+    color: var(--ink);
+  }
+  body { padding: 16px 12px 40px; }
+  .container { width: 100%; max-width: 460px; margin: 0 auto; }
+  .back-pill {
+    display: inline-block; padding: 8px 16px; border: 1px solid var(--line);
+    border-radius: 999px; background: #fffdf8; color: var(--ink);
+    text-decoration: none; font-size: 14px; margin-bottom: 18px;
+  }
+  h1 {
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+    font-size: 24px; text-align: center; margin: 4px 0 6px; letter-spacing: 0.04em;
+  }
+  .lead { text-align: center; color: var(--ink-soft); font-size: 14px; margin: 0 0 20px; }
+  .manual-img {
+    display: block; width: 100%; height: auto; background: #fff;
+    border: 1px solid var(--line); border-radius: 10px; margin: 0 0 14px;
+  }
+  .play-btn {
+    display: block; text-align: center; margin: 22px 0 10px; padding: 16px;
+    background: var(--accent); color: #fff; border-radius: 999px;
+    font-size: 17px; font-weight: 700; text-decoration: none; letter-spacing: 0.05em;
+  }
+  .play-btn:active { background: var(--accent-dark); }
+  .note { text-align: center; color: var(--ink-soft); font-size: 12px; margin: 0; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <a class="back-pill" href="../">← ゲチョボ☆魂のページへ</a>
+    <h1>ゲチョボ☆かるた 説明書</h1>
+    <p class="lead">遊び方はこちらです。</p>
+    <img class="manual-img" src="manual-front.png" alt="ゲチョボ☆かるた 説明書（表）">
+    <img class="manual-img" src="manual-back.png" alt="ゲチョボ☆かるた 説明書（裏）">
+    <a class="play-btn" href="./">▶ 読み札サイトで遊ぶ</a>
+    <p class="note">読み札サイトは、場の真ん中に置いたスマホが言葉を表示してくれるページです。</p>
+  </div>
+</body>
+</html>
