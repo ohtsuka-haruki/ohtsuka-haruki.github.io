@@ -70,6 +70,19 @@ body { background: #fff; color: var(--ink); }
 .ym-cbtn:hover { background: var(--ink); color: #fff; }
 .ym-cbtn.on { background: var(--ink); color: #fff; }
 .ym-list { list-style: none; }
+.ym-list-box { text-align: center; }
+.ym-list-sum { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--ink); border-radius: 999px; padding: 11px 26px; font-size: 13.5px; letter-spacing: 0.12em; cursor: pointer; list-style: none; background: #fff; color: var(--ink); }
+.ym-list-sum::-webkit-details-marker { display: none; }
+.ym-list-sum::after { content: "▾"; font-size: 11px; }
+.ym-list-box[open] .ym-list-sum::after { content: "▴"; }
+.ym-list-box .ym-list { margin-top: 12px; text-align: left; }
+.kx-manual { margin-top: 26px; text-align: center; }
+.kx-manual-sum { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--ink); border-radius: 999px; padding: 12px 30px; font-size: 14px; letter-spacing: 0.12em; cursor: pointer; list-style: none; background: transparent; color: var(--ink); }
+.kx-manual-sum::-webkit-details-marker { display: none; }
+.kx-manual-sum::after { content: "▾"; font-size: 11px; }
+.kx-manual[open] .kx-manual-sum::after { content: "▴"; }
+.kx-manual-imgs { margin-top: 26px; display: grid; gap: 22px; justify-items: center; }
+.kx-manual-imgs img { width: min(480px, 100%); height: auto; border: 1px solid #e3ded2; border-radius: 6px; background: #fff; box-shadow: 0 6px 24px rgba(20,20,20,0.07); }
 .ym-item { display: flex; gap: 14px; align-items: center; width: 100%; text-align: left; background: transparent; border: 0; border-bottom: 1px solid #e7e7e7; padding: 12px 10px; cursor: pointer; font-family: inherit; }
 .ym-item img { width: 46px; height: 82px; object-fit: cover; flex: none; background: #111; }
 .ym-item-no { font-size: 11px; letter-spacing: 0.24em; color: var(--ink-soft); }
@@ -192,6 +205,26 @@ body { background: #fff; color: var(--ink); }
 </section>
 
 <!-- ============ YOMIAGE ============ -->
+<!-- ============ KARUTA ============ -->
+<section class="gx-sec gx-gray" id="gx-karuta">
+<div class="wrap">
+<p class="gx-label">KARUTA</p>
+<h2 class="karuta-title-img"><img src="img/karuta_title_horizontal.webp" alt="ゲチョボ☆魂 かるた"></h2>
+<div class="gx-body" style="text-align:center;">
+<p>30の言葉が、取り札になりました。<br>
+遊ぶときの読み札は、スマホでひらきます。取る前に、声に出して読むのがルールです。</p>
+</div>
+<p class="gx-btnrow"><a class="gx-btn cta" href="karuta/">読み札サイトをひらく</a></p>
+<details class="kx-manual">
+<summary class="kx-manual-sum">説明書（遊び方）を見る</summary>
+<div class="kx-manual-imgs">
+<img src="karuta/manual-front.png" alt="ゲチョボ★かるた 説明書（表）" loading="lazy">
+<img src="karuta/manual-back.png" alt="ゲチョボ★かるた 説明書（裏）" loading="lazy">
+</div>
+</details>
+</div>
+</section>
+
 <section class="gx-sec" style="padding-top:0;" id="gx-yomiage">
 <div class="wrap">
 <p class="gx-label">YOMIAGE</p>
@@ -219,22 +252,12 @@ body { background: #fff; color: var(--ink); }
 <button class="ym-cbtn" id="ymFull" type="button">全画面</button>
 </div>
 </div>
+<details class="ym-list-box">
+<summary class="ym-list-sum">動画一覧</summary>
 <ol class="ym-list" id="ymList"></ol>
+</details>
 </div>
 <p class="ym-note">カルタ第1弾・全30語のうち、動画が用意できた言葉から順に公開しています。</p>
-</div>
-</section>
-
-<!-- ============ KARUTA ============ -->
-<section class="gx-sec gx-gray" id="gx-karuta">
-<div class="wrap">
-<p class="gx-label">KARUTA</p>
-<h2 class="karuta-title-img"><img src="img/karuta_title_horizontal.webp" alt="ゲチョボ☆魂 かるた"></h2>
-<div class="gx-body" style="text-align:center;">
-<p>30の言葉が、取り札になりました。<br>
-遊ぶときの読み札は、スマホでひらきます。取る前に、声に出して読むのがルールです。</p>
-</div>
-<p class="gx-btnrow"><a class="gx-btn cta" href="karuta/">読み札サイトをひらく</a></p>
 </div>
 </section>
 
@@ -376,8 +399,8 @@ body { background: #fff; color: var(--ink); }
 <nav class="gx-toc" id="gxToc" aria-label="ページ内目次">
 <a href="#gx-about">紹介</a>
 <a href="#gx-exhibition">展示</a>
-<a href="#gx-yomiage">読み上げ</a>
 <a href="#gx-karuta">かるた</a>
+<a href="#gx-yomiage">読み上げ</a>
 <a href="#gx-contact">依頼</a>
 </nav>
 <script>
