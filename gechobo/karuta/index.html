@@ -177,22 +177,6 @@
   }
 
   /* ===== 持ち札設定：開いた分だけ高さが伸びる ===== */
-  details.settings-accordion {
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    background: var(--panel-bg);
-    overflow: hidden;
-  }
-  details.settings-accordion summary {
-    padding: 12px 14px;
-    font-size: 13px;
-    font-weight: bold;
-    color: var(--ink-soft);
-    cursor: pointer;
-    user-select: none;
-    letter-spacing: 0.05em;
-  }
-  .settings-content { padding: 4px 10px 12px; }
   .wave-row { display: flex; gap: 8px; flex-wrap: wrap; padding: 2px; }
   .wave-chip {
     flex: 1;
@@ -234,14 +218,9 @@
   </div>
 
   <!-- 使用する札の選択 -->
-  <details class="settings-accordion">
-    <summary>使用する弾を選択</summary>
-    <div class="settings-content">
-      <div class="wave-row" id="waveRow">
-        <!-- JSで動的生成 -->
-      </div>
-    </div>
-  </details>
+  <div class="wave-row" id="waveRow">
+    <!-- JSで動的生成 -->
+  </div>
 </div>
 
 <script>
