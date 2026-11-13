@@ -77,10 +77,9 @@ body { background: #fff; color: var(--ink); }
 .ym-list-box[open] .ym-list-sum::after { content: "▴"; }
 .ym-list-box .ym-list { margin-top: 12px; text-align: left; }
 .kx-manual { margin-top: 26px; text-align: center; }
-.kx-manual-sum { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--ink); border-radius: 999px; padding: 12px 30px; font-size: 14px; letter-spacing: 0.12em; cursor: pointer; list-style: none; background: transparent; color: var(--ink); }
+.kx-manual-sum { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--ink); border-radius: 999px; padding: 12px 30px; font-size: 14px; letter-spacing: 0.12em; cursor: pointer; list-style: none; background: transparent; color: var(--ink); text-decoration: none; }
 .kx-manual-sum::-webkit-details-marker { display: none; }
-.kx-manual-sum::after { content: "▾"; font-size: 11px; }
-.kx-manual[open] .kx-manual-sum::after { content: "▴"; }
+.kx-manual-sum::after { content: "›"; font-size: 15px; }
 .kx-manual-imgs { margin-top: 26px; display: grid; gap: 22px; justify-items: center; }
 .kx-manual-imgs img { width: min(480px, 100%); height: auto; border: 1px solid #e3ded2; border-radius: 6px; background: #fff; box-shadow: 0 6px 24px rgba(20,20,20,0.07); }
 .ym-item { display: flex; gap: 14px; align-items: center; width: 100%; text-align: left; background: transparent; border: 0; border-bottom: 1px solid #e7e7e7; padding: 12px 10px; cursor: pointer; font-family: inherit; }
@@ -215,13 +214,7 @@ body { background: #fff; color: var(--ink); }
 遊ぶときの読み札は、スマホでひらきます。取る前に、声に出して読むのがルールです。</p>
 </div>
 <p class="gx-btnrow"><a class="gx-btn cta" href="karuta/">読み札サイトをひらく</a></p>
-<details class="kx-manual">
-<summary class="kx-manual-sum">説明書（遊び方）を見る</summary>
-<div class="kx-manual-imgs">
-<img src="karuta/manual-front.png" alt="ゲチョボ★かるた 説明書（表）" loading="lazy">
-<img src="karuta/manual-back.png" alt="ゲチョボ★かるた 説明書（裏）" loading="lazy">
-</div>
-</details>
+<p class="kx-manual"><a class="kx-manual-sum" href="karuta/manual.html">説明書（遊び方）を見る</a></p>
 </div>
 </section>
 
