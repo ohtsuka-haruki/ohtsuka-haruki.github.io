@@ -31,8 +31,35 @@
   ]
 }
 </script>
+
+<style>
+.an-banner{position:fixed;top:0;left:0;right:0;z-index:94;height:44px;display:flex;align-items:center;justify-content:center;background:#2a251d;color:#f6f1e7;border:0;padding:0 16px;font:inherit;font-size:15px;letter-spacing:.04em;cursor:pointer}
+.site-header{top:44px}
+.an-banner b{font-weight:700}
+.an-banner .an-more{font-size:12px;opacity:.75;margin-left:10px;text-decoration:underline}
+.an-overlay{position:fixed;inset:0;background:rgba(30,25,18,.55);display:none;align-items:center;justify-content:center;z-index:999;padding:20px}
+.an-overlay.open{display:flex}
+.an-card{background:#fffdf8;color:#2a251d;max-width:420px;width:100%;border-radius:14px;padding:28px 26px 24px;position:relative;box-shadow:0 18px 50px rgba(0,0,0,.35);text-align:center}
+.an-card h2{font-size:17px;margin:0 0 14px;letter-spacing:.08em}
+.an-card p{font-size:14.5px;line-height:1.8;margin:0 0 10px}
+.an-ig{display:inline-block;margin-top:12px;background:#2a251d;color:#f6f1e7;text-decoration:none;padding:12px 22px;border-radius:999px;font-size:14.5px}
+.an-close{position:absolute;top:8px;right:12px;background:none;border:0;font-size:24px;line-height:1;cursor:pointer;color:#2a251d;padding:6px}
+</style>
 </head>
 <body>
+<button type="button" class="an-banner" id="anOpen">📢 <b>11/28（土）20:00 新作発表</b><span class="an-more">詳しくはこちら</span></button>
+<div class="an-overlay" id="anOverlay" role="dialog" aria-modal="true" aria-labelledby="anTitle">
+<div class="an-card">
+<button type="button" class="an-close" id="anClose" aria-label="閉じる">×</button>
+<h2 id="anTitle">お知らせ</h2>
+<p>11月28日（土）20:00、新曲『さんぽみち』を発表します。</p>
+<p>最新情報はInstagramでお知らせしています。</p>
+<a class="an-ig" href="https://www.instagram.com/haruki_art_jp/" target="_blank" rel="noopener">Instagramで見る（@haruki_art_jp）</a>
+</div>
+</div>
+<script>
+(function(){var o=document.getElementById('anOverlay');document.getElementById('anOpen').addEventListener('click',function(){o.classList.add('open')});document.getElementById('anClose').addEventListener('click',function(){o.classList.remove('open')});o.addEventListener('click',function(e){if(e.target===o)o.classList.remove('open')});document.addEventListener('keydown',function(e){if(e.key==='Escape')o.classList.remove('open')});})();
+</script>
 
 <header class="site-header">
 <a class="logo" href="./"><img src="assets/logo-haruki.webp" alt="HARUKI"></a>
