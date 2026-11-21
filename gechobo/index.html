@@ -31,6 +31,10 @@ body { background: #fff; color: var(--ink); }
 .gx-btn-ic svg { width: 17px; height: 17px; flex: none; }
 .gx-btn.cta { background: var(--red); border-color: var(--red); color: #fff; font-size: 15.5px; padding: 16px 46px; }
 .gx-btn.cta:hover { background: #b3241c; border-color: #b3241c; color: #fff; }
+.gx-btncol { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-top: 40px; }
+.gx-btncol .gx-btn { width: min(360px, 88vw); text-align: center; box-sizing: border-box; }
+.gx-herobtn { text-align: center; margin-top: 36px; }
+.gx-shopbtn { background: rgba(255,255,255,.82); }
 /* HERO */
 .gx-hero { position: relative; overflow: hidden; padding: calc(var(--header-h) + clamp(70px, 12vh, 130px)) 0 clamp(80px, 12vh, 130px); }
 .gx-hero::before { content: ""; position: absolute; inset: 0; background: url("img/hagaki_mosaic.jpg") center / cover; }
@@ -168,6 +172,7 @@ body { background: #fff; color: var(--ink); }
 <p class="gx-brand">大塚陽暉の作品群</p>
 <h1 class="gx-title"><img src="img/gechobo_logo_horizontal.webp" alt="ゲチョボ☆魂"></h1>
 <p class="gx-lead">意味のない言葉を、ハガキに書く。</p>
+<p class="gx-herobtn"><a class="gx-btn gx-shopbtn" href="https://gechobo.official.ec/" target="_blank" rel="noopener">公式ショップ（BASE）</a></p>
 </div>
 </div>
 
@@ -217,8 +222,11 @@ body { background: #fff; color: var(--ink); }
 <p>30の言葉が、取り札になりました。<br>
 遊ぶときの読み札は、スマホでひらきます。取る前に、声に出して読むのがルールです。</p>
 </div>
-<p class="gx-btnrow"><a class="gx-btn cta" href="karuta/">読み札サイトをひらく</a> <a class="gx-btn" style="margin-left:10px;" href="https://gechobo.official.ec/" target="_blank" rel="noopener">公式ショップ（BASE）</a></p>
-<p class="kx-manual"><a class="kx-manual-sum" href="karuta/manual.html">説明書（遊び方）を見る</a></p>
+<div class="gx-btncol">
+<a class="gx-btn cta" href="karuta/">読み札サイトをひらく</a>
+<a class="gx-btn solid" href="https://gechobo.official.ec/" target="_blank" rel="noopener">公式ショップ（BASE）</a>
+<a class="gx-btn" href="karuta/manual.html">説明書（遊び方）を見る</a>
+</div>
 </div>
 </section>
 
