@@ -111,6 +111,20 @@ body { background: #fff; color: var(--ink); }
 .gx-card p { font-size: 13.5px; color: var(--ink-soft); margin-top: 10px; line-height: 1.9; }
 .gx-mail { text-align: center; margin-top: 36px; font-size: 14px; letter-spacing: 0.08em; }
 
+.kx-carousel { max-width: 700px; margin: 42px auto 0; }
+.kx-track { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 4px; }
+.kx-track::-webkit-scrollbar { display: none; }
+.kx-track figure { flex: 0 0 auto; scroll-snap-align: center; margin: 0; }
+.kx-track img { height: min(62vw, 430px); width: auto; display: block; }
+.kx-track .gx-cap { text-align: center; }
+.kx-dots { display: flex; justify-content: center; gap: 7px; margin-top: 12px; }
+.kx-dots span { width: 7px; height: 7px; border-radius: 50%; background: rgba(20,20,20,0.22); transition: background .25s; }
+.kx-dots span.on { background: var(--ink); }
+.kx-dark .kx-spec, .kx-dark .kx-note { color: rgba(242,237,227,0.92); }
+.kx-spec { text-align: center; margin-top: 40px; font-size: 13.5px; letter-spacing: 0.06em; line-height: 1.9; }
+.kx-note { text-align: center; margin-top: 8px; font-size: 13px; }
+.kx-shoprow { text-align: center; margin-top: 36px; }
+.kx-carousel { margin-top: 26px; }
 /* ページ内目次レール（全幅・スクロール中だけ表示） */
 #gx-about, #gx-exhibition, #gx-yomiage, #gx-karuta, #gx-contact { scroll-margin-top: 84px; }
 .gx-toc { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; position: fixed; right: 10px; top: 50%; transform: translateY(-50%); z-index: 60; pointer-events: none; }
@@ -180,6 +194,21 @@ body { background: #fff; color: var(--ink); }
 <p class="back-row" style="margin:40px 0 0;"><a class="back-pill" href="../">←HOME</a></p>
 </div>
 
+<script>
+(() => {
+  const c = document.getElementById("kxCarousel");
+  if (!c) return;
+  const track = c.querySelector(".kx-track");
+  const dots = Array.from(c.querySelectorAll(".kx-dots span"));
+  const slides = Array.from(track.children);
+  track.addEventListener("scroll", () => {
+    let best = 0, bd = Infinity;
+    slides.forEach((s, i) => { const d = Math.abs(s.offsetLeft - track.scrollLeft - (track.clientWidth - s.clientWidth) / 2); if (d < bd) { bd = d; best = i; } });
+    dots.forEach((d, i) => d.classList.toggle("on", i === best));
+  }, { passive: true });
+})();
+</script>
+
 <!-- ============ ABOUT ============ -->
 <section class="gx-sec" id="gx-about">
 <div class="wrap">
@@ -192,6 +221,44 @@ body { background: #fff; color: var(--ink); }
 <div style="max-width:560px;margin:36px auto 0;">
 <p class="gx-cap" style="text-align:center;margin:0 0 10px;">コント動画</p>
 <div class="video-frame" style="margin-top:0;"><iframe src="https://www.youtube.com/embed/Ty7Hbqaemhg" title="コント動画" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+</div>
+</div>
+</section>
+
+<!-- ============ KARUTA ============ -->
+<section class="gx-sec" id="gx-karuta">
+<div class="wrap">
+<p class="gx-label">KARUTA</p>
+<h2 class="karuta-title-img"><img src="img/karuta_title_horizontal.webp" alt="ゲチョボ☆魂 かるた"></h2>
+<div class="gx-body" style="text-align:center;">
+<p>ゲチョボ様が降ろした言葉を広げるため、435を超える言葉の中から30を選んで、カルタにしました。</p>
+</div>
+<p class="kx-shoprow"><a class="gx-btn solid" href="https://gechobo.official.ec/items/166608231" target="_blank" rel="noopener">ショップで見る（BASE）</a></p>
+<div class="kx-carousel" id="kxCarousel">
+<div class="kx-track">
+<figure><a href="https://gechobo.official.ec/items/166608231" target="_blank" rel="noopener"><img src="img/karuta_blk_front.webp" alt="ゲチョボ☆魂 かるた 第1弾 箱（表面）"></a><figcaption class="gx-cap">箱（表面）― タップで商品ページへ</figcaption></figure>
+<figure><img src="img/karuta_blk_angle.webp" alt="箱の側面"><figcaption class="gx-cap">側面にも、名前</figcaption></figure>
+<figure><img src="img/karuta_blk_back.webp" alt="箱（裏面）"><figcaption class="gx-cap">箱（裏面）― 言葉とQRコード</figcaption></figure>
+<figure><img src="img/karuta_blk_open.webp" alt="開けた箱と札の束"><figcaption class="gx-cap">開けると、札が32枚</figcaption></figure>
+<figure><img src="img/karuta_blk_flat.webp" alt="全32枚を並べたところ"><figcaption class="gx-cap">全部並べると、こうなります（全32枚）</figcaption></figure>
+</div>
+<div class="kx-dots" aria-hidden="true"><span class="on"></span><span></span><span></span><span></span><span></span></div>
+</div>
+<div class="gx-body">
+<p>遊び方は簡単です。読み手はいりません。スマホを真ん中に置いて、札を引いた人が、取る前に声に出して読み上げます。「声に出して読む」が、このカルタのルールです。</p>
+<p>箱の中には、白紙の札が1枚入っています。セットごとに違う言葉を作者が手書きで書くので、届いた箱にしかない言葉が、1枚入っています。</p>
+</div>
+<div class="gx-cards">
+<div class="gx-card"><h3>遊ぶ</h3><p>2人から。読み札はスマホで開きます。読み上げると、だいたい笑ってしまいます。</p></div>
+<div class="gx-card"><h3>眺める</h3><p>一人で眺めるカルタとしてもどうぞ。箱のまま、棚に置けます。</p></div>
+<div class="gx-card"><h3>持ち運ぶ</h3><p>ポーカーサイズで、そのままポケットに。1枚だけ忍ばせて、お守りのように持ち歩くのも。</p></div>
+</div>
+<p class="kx-spec">取り札30枚＋説明札1枚＋白紙札1枚（全32枚）／ 63×88mm ／ 第1弾 ¥2,000（送料込み）</p>
+<p class="kx-note">売上は、かるた第2弾と、次の商品を作る費用に回します。</p>
+<div class="gx-btncol">
+<a class="gx-btn" href="karuta/manual.html">説明書（遊び方）を見る</a>
+<a class="gx-btn solid" href="https://gechobo.official.ec/" target="_blank" rel="noopener">公式ショップ（BASE）</a>
+<a class="gx-btn cta" href="karuta/">読み札サイトをひらく</a>
 </div>
 </div>
 </section>
@@ -213,23 +280,6 @@ body { background: #fff; color: var(--ink); }
 </section>
 
 <!-- ============ YOMIAGE ============ -->
-<!-- ============ KARUTA ============ -->
-<section class="gx-sec gx-gray" id="gx-karuta">
-<div class="wrap">
-<p class="gx-label">KARUTA</p>
-<h2 class="karuta-title-img"><img src="img/karuta_title_horizontal.webp" alt="ゲチョボ☆魂 かるた"></h2>
-<div class="gx-body" style="text-align:center;">
-<p>30の言葉が、取り札になりました。<br>
-遊ぶときの読み札は、スマホでひらきます。取る前に、声に出して読むのがルールです。</p>
-</div>
-<div class="gx-btncol">
-<a class="gx-btn" href="karuta/manual.html">説明書（遊び方）を見る</a>
-<a class="gx-btn solid" href="https://gechobo.official.ec/" target="_blank" rel="noopener">公式ショップ（BASE）</a>
-<a class="gx-btn cta" href="karuta/">読み札サイトをひらく</a>
-</div>
-</div>
-</section>
-
 <section class="gx-sec" style="padding-top:0;" id="gx-yomiage">
 <div class="wrap">
 <p class="gx-label">YOMIAGE</p>
@@ -403,8 +453,8 @@ body { background: #fff; color: var(--ink); }
 
 <nav class="gx-toc" id="gxToc" aria-label="ページ内目次">
 <a href="#gx-about">紹介</a>
-<a href="#gx-exhibition">展示</a>
 <a href="#gx-karuta">かるた</a>
+<a href="#gx-exhibition">展示</a>
 <a href="#gx-yomiage">読み上げ</a>
 <a href="#gx-contact">依頼</a>
 </nav>
