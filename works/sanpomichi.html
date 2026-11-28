@@ -19,7 +19,7 @@
     position: sticky; top: 0; z-index: 5;
     width: calc(100% + 32px); margin: 0 -16px;
     background: #fff; border-bottom: 1px solid #e5e5e5; box-shadow: 0 2px 14px rgba(0,0,0,0.05);
-    text-align: center; padding: 22px 84px 18px 16px;
+    text-align: center; padding: 22px 16px 18px;
   }
   .credit { margin-top: 10px; font-size: 13px; color: #6e6e6e; letter-spacing: .08em; }
   .framing { margin-top: 18px; font-size: 17px; font-weight: 600; color: #5a5a5a; letter-spacing: .06em; line-height: 2; text-align: center; }
@@ -46,10 +46,7 @@
     display: flex; align-items: center; justify-content: center; gap: 10px;
     font-size: 17px; letter-spacing: .1em;
   }
-  .loop-pill .dot { width: 11px; height: 11px; border-radius: 50%; background: #c9c9c9; }
   .loop-on .loop-pill { background: #1e1e1e; color: #fff; }
-  .loop-on .loop-pill .dot { background: #fff; }
-  .note { margin-top: 14px; font-size: 12.5px; color: #8a8a8a; letter-spacing: .06em; text-align: center; line-height: 1.9; }
   .lyric { margin-top: 48px; width: 100%; max-width: 640px; }
   .card-title { margin-bottom: 16px; font-size: 14px; color: #333; letter-spacing: .16em; text-align: center; }
   .card-title::before { content: ""; display: block; width: 28px; height: 1px; background: #c9c9c9; margin: 0 auto 14px; }
@@ -86,11 +83,9 @@
 
   <div class="buttons">
     <button class="btn" id="loopBtn" aria-label="ループ切り替え">
-      <span class="loop-pill">ループ<span class="dot"></span></span>
+      <span class="loop-pill"><span id="loopLabel">ループOFF</span></span>
     </button>
   </div>
-  <p class="note"><span class="keep">ループONのとき、</span><span class="keep">終わると先頭から流れ続けます</span></p>
-
   <div class="route">
     <p class="route-title">完成までの道すじ</p>
     <p class="route-row"><span class="route-date">2024.2.9</span><span>八王子駅でメロディが降ってくる</span></p>
@@ -147,6 +142,7 @@
   document.getElementById('loopBtn').addEventListener('click', function () {
     loopOn = !loopOn;
     document.body.classList.toggle('loop-on', loopOn);
+    document.getElementById('loopLabel').textContent = loopOn ? 'ループON' : 'ループOFF';
   });
 
   // インストBGM（右上のボタン）：クリック起点で <audio> を直接再生する

@@ -33,10 +33,13 @@
 </script>
 
 <style>
-.an-banner{position:fixed;top:0;left:0;right:0;z-index:94;height:44px;display:flex;align-items:center;justify-content:center;background:#2a251d;color:#f6f1e7;border:0;padding:0 16px;font:inherit;font-size:15px;letter-spacing:.04em;white-space:nowrap}
+.an-banner{position:fixed;top:0;left:0;right:0;z-index:94;height:44px;display:flex;align-items:center;justify-content:center;background:#2a251d;color:#f6f1e7;border:0;padding:0 16px;font:inherit;font-size:15px;letter-spacing:.04em;cursor:pointer;width:100%}
 .site-header{top:44px}
 .an-banner b{font-weight:700}
-.an-banner .an-more{font-size:12px;opacity:.75;margin-left:10px;text-decoration:underline;color:inherit}
+.an-banner .an-more{font-size:12px;opacity:.75;margin-left:10px;text-decoration:underline}
+.an-links{margin-top:16px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.an-links .an-ig{margin-top:0;width:100%;max-width:280px;box-sizing:border-box}
+.an-ig.sub{background:#fffdf8;color:#2a251d;border:1px solid #2a251d}
 @media (max-width:480px){.an-banner{font-size:12.5px;padding:0 8px}.an-banner .an-more{font-size:11px;margin-left:8px}}
 .an-overlay{position:fixed;inset:0;background:rgba(30,25,18,.55);display:none;align-items:center;justify-content:center;z-index:999;padding:20px}
 .an-overlay.open{display:flex}
@@ -57,18 +60,21 @@
 <body>
 <button class="bgm-btn" id="bgmBtn" aria-label="インストBGM切り替え">♪</button>
 <audio id="bgm" src="works/sanpomichi_instrumental_web.mp3" loop preload="auto"></audio>
-<div class="an-banner">📢 <b>『さんぽみち』公開しました</b><a class="an-more" href="works/sanpomichi.html">聴くページへ</a><a class="an-more" href="https://www.instagram.com/p/DgSGhYXjoU9/" target="_blank" rel="noopener">Instagramへ</a></div>
+<button type="button" class="an-banner" id="anOpen">📢 <b>『さんぽみち』公開しました</b><span class="an-more">詳しく見る</span></button>
 <div class="an-overlay" id="anOverlay" role="dialog" aria-modal="true" aria-labelledby="anTitle">
 <div class="an-card">
 <button type="button" class="an-close" id="anClose" aria-label="閉じる">×</button>
 <h2 id="anTitle">お知らせ</h2>
 <p>11月28日（土）20:00、新曲を発表します。</p>
 <p>最新情報はInstagramでお知らせしています。</p>
-<a class="an-ig" href="works/sanpomichi.html">『さんぽみち』のページへ</a>
+<div class="an-links">
+<a class="an-ig" href="https://ohtsukaharuki.com/works/sanpomichi.html">聴くページへ</a>
+<a class="an-ig sub" href="https://www.instagram.com/p/DgSGhYXjoU9/" target="_blank" rel="noopener">Instagramへ</a>
+</div>
 </div>
 </div>
 <script>
-(function(){var o=document.getElementById('anOverlay');var b=document.getElementById('anOpen');if(b){b.addEventListener('click',function(){o.classList.add('open')})}document.getElementById('anClose').addEventListener('click',function(){o.classList.remove('open')});o.addEventListener('click',function(e){if(e.target===o)o.classList.remove('open')});document.addEventListener('keydown',function(e){if(e.key==='Escape')o.classList.remove('open')});})();
+(function(){var o=document.getElementById('anOverlay');document.getElementById('anOpen').addEventListener('click',function(){o.classList.add('open')});document.getElementById('anClose').addEventListener('click',function(){o.classList.remove('open')});o.addEventListener('click',function(e){if(e.target===o)o.classList.remove('open')});document.addEventListener('keydown',function(e){if(e.key==='Escape')o.classList.remove('open')});})();
 </script>
 
 <header class="site-header">
