@@ -23,6 +23,7 @@
   }
   .credit { margin-top: 10px; font-size: 13px; color: #6e6e6e; letter-spacing: .08em; }
   .framing { margin-top: 18px; font-size: 17px; font-weight: 600; color: #5a5a5a; letter-spacing: .06em; line-height: 2; text-align: center; }
+  .framing-lead { font-size: 14px; font-weight: 400; color: #8f8f8f; }
   .bgm-btn { position: fixed; top: 18px; right: 16px; z-index: 10; width: 52px; height: 52px; border-radius: 50%; border: 1px solid #1e1e1e; background: #fff; color: #1e1e1e; font-size: 20px; font-family: inherit; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
   .bgm-btn.on { background: #1e1e1e; color: #fff; }
   .route { margin-top: 48px; width: 100%; max-width: 640px; font-size: 14px; font-weight: 600; color: #5a5a5a; letter-spacing: .06em; border: 1px solid #d9d9d9; padding: 22px 24px; }
@@ -57,12 +58,14 @@
   .home-btn { display: inline-block; padding: 12px 36px; border: 1px solid #b4b4b4; border-radius: 999px; color: #5a5a5a; font-size: 13px; letter-spacing: .14em; text-decoration: none; transition: border-color .25s, color .25s; }
   .home-btn:hover { border-color: #1e1e1e; color: #1e1e1e; }
   @media (max-width: 480px) {
-    .bgm-btn { top: 10px; }
+    .bgm-btn { top: 19.5px; }
+    .title-card h1 { font-size: 35px; }
     .route { padding: 20px 16px; font-size: 13px; letter-spacing: .04em; }
     .route-date { flex-basis: 6.4em; }
   }
   @media (max-width: 340px) {
     .framing { font-size: 15px; }
+    .framing-lead { font-size: 12.5px; }
   }
 </style>
 </head>
@@ -73,7 +76,7 @@
     <h1>さんぽみち</h1>
   </div>
   <div class="credit">作詞・作曲　大塚陽暉</div>
-  <p class="framing"><span class="keep">大学生のうちに、</span><span class="keep">初めて一人で作詞作曲した曲です。</span><br><span class="keep">昔の自分を癒すために作りました。</span></p>
+  <p class="framing"><span class="framing-lead"><span class="keep">大学生のうちに、</span><span class="keep">初めて一人で作詞作曲した曲です。</span></span><br><span class="keep">昔の自分を癒すために作りました。</span></p>
 
   <div class="frame">
     <div class="stage" id="stage">
