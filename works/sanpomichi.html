@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>さんぽみち | 大塚陽暉</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif CJK JP", serif;
+    background: #fff; color: #1e1e1e;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 40px 16px 64px;
+  }
+  h1 { font-size: 30px; font-weight: normal; letter-spacing: .12em; text-shadow: 0 2px 16px rgba(0,0,0,.30); }
+  .credit { margin-top: 10px; font-size: 13px; color: #6e6e6e; letter-spacing: .08em; }
+  .framing { margin-top: 18px; font-size: 14px; color: #5a5a5a; letter-spacing: .06em; line-height: 2; text-align: center; }
+  .frame {
+    margin-top: 36px; width: 100%; max-width: 880px;
+    border: 2px solid #282828; padding: 6px;
+  }
+  .stage {
+    position: relative; width: 100%; aspect-ratio: 16 / 9;
+    border: 1px solid #b4b4b4; overflow: hidden; background: #000;
+  }
+  .stage iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .buttons { margin-top: 34px; display: flex; justify-content: center; }
+  .btn { background: none; border: none; cursor: pointer; font-family: inherit; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .btn .label { font-size: 15px; color: #1e1e1e; letter-spacing: .1em; }
+  .loop-pill {
+    height: 56px; min-width: 168px; padding: 0 26px; border-radius: 999px;
+    border: 3px solid #1e1e1e; background: #fff; color: #1e1e1e;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-size: 17px; letter-spacing: .1em;
+  }
+  .loop-pill .dot { width: 11px; height: 11px; border-radius: 50%; background: #c9c9c9; }
+  .loop-on .loop-pill { background: #1e1e1e; color: #fff; }
+  .loop-on .loop-pill .dot { background: #fff; }
+  .note { margin-top: 14px; font-size: 12.5px; color: #8a8a8a; letter-spacing: .06em; text-align: center; line-height: 1.9; }
+  .lyric { margin-top: 48px; width: 100%; max-width: 640px; }
+  .card-title { margin-bottom: 16px; font-size: 14px; color: #333; letter-spacing: .16em; text-align: center; }
+  .card-title::before { content: ""; display: block; width: 28px; height: 1px; background: #c9c9c9; margin: 0 auto 14px; }
+  .paper { box-shadow: 0 8px 28px rgba(0,0,0,.13); }
+  .lyric img { width: 100%; height: auto; display: block; }
+  .mv-note { margin-top: 40px; font-size: 13px; color: #6e6e6e; letter-spacing: .08em; text-align: center; }
+</style>
+</head>
+<body>
+  <h1>さんぽみち</h1>
+  <div class="credit">作詞・作曲　大塚陽暉</div>
+  <p class="framing">大学生のうちに、初めて一人で作詞作曲した曲です。<br>昔の自分を癒すために作りました。</p>
+
+  <div class="frame">
+    <div class="stage" id="stage">
+      <div id="player"></div>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button class="btn" id="loopBtn" aria-label="ループ切り替え">
+      <span class="loop-pill">ループ<span class="dot"></span></span>
+      <span class="label">ループ</span>
+    </button>
+  </div>
+  <p class="note">ループONのとき、終わると先頭から流れ続けます</p>
+
+  <div class="lyric">
+    <img src="sanpomichi_lyric_card_clean.png" alt="『さんぽみち』歌詞カード">
+  </div>
+
+  <div class="lyric">
+    <p class="card-title">録音時に書き込んだメモ</p>
+    <img class="paper" src="sanpomichi_lyric_card_annotated.png" alt="『さんぽみち』歌詞カード（書き込みあり）">
+  </div>
+
+  <p class="mv-note">2027年の梅雨の頃に、MVを公開予定です。</p>
+
+<script>
+  // ★ 公開前にここだけ差し替える：『さんぽみち』限定公開動画のID（11文字）
+  var VIDEO_ID = 'hXouq1H6Qv0';
+  var player = null, loopOn = false;
+
+  var tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(tag);
+
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+      videoId: VIDEO_ID,
+      host: 'https://www.youtube-nocookie.com',
+      playerVars: {
+        rel: 0, modestbranding: 1, playsinline: 1,
+        iv_load_policy: 3
+      },
+      events: { onStateChange: onState }
+    });
+  }
+
+  function onState(e) {
+    if (e.data === YT.PlayerState.ENDED && loopOn) {
+      player.seekTo(0);
+      player.playVideo();
+    }
+  }
+
+  document.getElementById('loopBtn').addEventListener('click', function () {
+    loopOn = !loopOn;
+    document.body.classList.toggle('loop-on', loopOn);
+  });
+</script>
+</body>
+</html>
