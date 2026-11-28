@@ -11,8 +11,22 @@
     background: #fff; color: #1e1e1e;
     display: flex; flex-direction: column; align-items: center;
     padding: 40px 16px 64px;
+    line-break: strict;
   }
-  h1 { font-size: 30px; font-weight: normal; letter-spacing: .12em; text-shadow: 0 2px 16px rgba(0,0,0,.30); }
+  .keep { display: inline-block; white-space: nowrap; }
+  .path-line { width: 0; height: 48px; border-left: 2px dashed #cfc9bd; margin: 16px auto 0; }
+  .path-line + .frame { margin-top: 12px; }
+  .path-line + .route { margin-top: 16px; }
+  .path-line + .lyric { margin-top: 16px; }
+  .path-line + .mv-note { margin-top: 14px; }
+  .path-line + .home-row { margin-top: 16px; }
+  h1 { font-size: clamp(22px, 4.4vw, 32px); font-weight: 500; letter-spacing: .1em; text-shadow: 0 0 14px rgba(70,70,70,0.38), 0 0 34px rgba(70,70,70,0.20); }
+  .title-card {
+    position: sticky; top: 0; z-index: 5;
+    width: 100%; max-width: 640px; margin: 0 auto;
+    background: #fff; border: 1px solid #e5e5e5; box-shadow: 0 2px 14px rgba(0,0,0,0.05);
+    text-align: center; padding: 22px 16px 18px;
+  }
   .credit { margin-top: 10px; font-size: 13px; color: #6e6e6e; letter-spacing: .08em; }
   .framing { margin-top: 18px; font-size: 17px; font-weight: 600; color: #5a5a5a; letter-spacing: .06em; line-height: 2; text-align: center; }
   .bgm-btn { position: fixed; top: 16px; right: 16px; z-index: 10; width: 52px; height: 52px; border-radius: 50%; border: 1px solid #1e1e1e; background: #fff; color: #1e1e1e; font-size: 20px; font-family: inherit; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
@@ -52,15 +66,25 @@
   .home-row { margin-top: 48px; }
   .home-btn { display: inline-block; padding: 12px 36px; border: 1px solid #b4b4b4; border-radius: 999px; color: #5a5a5a; font-size: 13px; letter-spacing: .14em; text-decoration: none; transition: border-color .25s, color .25s; }
   .home-btn:hover { border-color: #1e1e1e; color: #1e1e1e; }
+  @media (max-width: 480px) {
+    .route { padding: 20px 16px; font-size: 13px; letter-spacing: .04em; }
+    .route-date { flex-basis: 6.4em; }
+  }
+  @media (max-width: 340px) {
+    .framing { font-size: 15px; }
+  }
 </style>
 </head>
 <body>
   <button class="bgm-btn" id="bgmBtn" aria-label="インストBGM切り替え">♪</button>
   <audio id="bgm" src="sanpomichi_instrumental_web.mp3" loop preload="auto"></audio>
-  <h1>さんぽみち</h1>
-  <div class="credit">作詞・作曲　大塚陽暉</div>
-  <p class="framing">大学生のうちに、初めて一人で作詞作曲した曲です。<br>昔の自分を癒すために作りました。</p>
+  <div class="title-card">
+    <h1>さんぽみち</h1>
+    <div class="credit">作詞・作曲　大塚陽暉</div>
+  </div>
+  <p class="framing"><span class="keep">大学生のうちに、</span><span class="keep">初めて一人で作詞作曲した曲です。</span><br><span class="keep">昔の自分を癒すために作りました。</span></p>
 
+  <div class="path-line" aria-hidden="true"></div>
   <div class="frame">
     <div class="stage" id="stage">
       <div id="player"></div>
@@ -73,8 +97,9 @@
       <span class="label">ループ</span>
     </button>
   </div>
-  <p class="note">ループONのとき、終わると先頭から流れ続けます</p>
+  <p class="note"><span class="keep">ループONのとき、</span><span class="keep">終わると先頭から流れ続けます</span></p>
 
+  <div class="path-line" aria-hidden="true"></div>
   <div class="route">
     <p class="route-title">完成までの道すじ</p>
     <p class="route-row"><span class="route-date">2024.2.9</span><span>八王子駅でメロディが降ってくる</span></p>
@@ -84,17 +109,21 @@
     <p class="route-row"><span class="route-date">2026.11.28</span><span>公開</span></p>
   </div>
 
+  <div class="path-line" aria-hidden="true"></div>
   <div class="lyric">
     <img src="sanpomichi_lyric_card_clean.png" alt="『さんぽみち』歌詞カード">
   </div>
 
+  <div class="path-line" aria-hidden="true"></div>
   <div class="lyric">
     <p class="card-title">録音時に書き込んだメモ</p>
     <img class="paper" src="sanpomichi_lyric_card_annotated.png" alt="『さんぽみち』歌詞カード（書き込みあり）">
   </div>
 
-  <p class="mv-note">2027年の梅雨の頃に、MVを公開予定です。</p>
+  <div class="path-line" aria-hidden="true"></div>
+  <p class="mv-note"><span class="keep">2027年の梅雨の頃に、</span><span class="keep">MVを公開予定です。</span></p>
 
+  <div class="path-line" aria-hidden="true"></div>
   <p class="home-row"><a class="home-btn" href="../index.html">ホームへ戻る</a></p>
 
 <script>
