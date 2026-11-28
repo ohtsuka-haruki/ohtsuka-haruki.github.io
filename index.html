@@ -33,10 +33,11 @@
 </script>
 
 <style>
-.an-banner{position:fixed;top:0;left:0;right:0;z-index:94;height:44px;display:flex;align-items:center;justify-content:center;background:#2a251d;color:#f6f1e7;border:0;padding:0 16px;font:inherit;font-size:15px;letter-spacing:.04em;cursor:pointer}
+.an-banner{position:fixed;top:0;left:0;right:0;z-index:94;height:44px;display:flex;align-items:center;justify-content:center;background:#2a251d;color:#f6f1e7;border:0;padding:0 16px;font:inherit;font-size:15px;letter-spacing:.04em;white-space:nowrap}
 .site-header{top:44px}
 .an-banner b{font-weight:700}
-.an-banner .an-more{font-size:12px;opacity:.75;margin-left:10px;text-decoration:underline}
+.an-banner .an-more{font-size:12px;opacity:.75;margin-left:10px;text-decoration:underline;color:inherit}
+@media (max-width:480px){.an-banner{font-size:12.5px;padding:0 8px}.an-banner .an-more{font-size:11px;margin-left:8px}}
 .an-overlay{position:fixed;inset:0;background:rgba(30,25,18,.55);display:none;align-items:center;justify-content:center;z-index:999;padding:20px}
 .an-overlay.open{display:flex}
 .an-card{background:#fffdf8;color:#2a251d;max-width:420px;width:100%;border-radius:14px;padding:28px 26px 24px;position:relative;box-shadow:0 18px 50px rgba(0,0,0,.35);text-align:center}
@@ -56,7 +57,7 @@
 <body>
 <button class="bgm-btn" id="bgmBtn" aria-label="インストBGM切り替え">♪</button>
 <audio id="bgm" src="works/sanpomichi_instrumental_web.mp3" loop preload="auto"></audio>
-<button type="button" class="an-banner" id="anOpen">📢 <b>11/28（土）20:00 新作発表</b><span class="an-more">詳しくはこちら</span></button>
+<div class="an-banner">📢 <b>『さんぽみち』公開しました</b><a class="an-more" href="works/sanpomichi.html">聴くページへ</a><a class="an-more" href="https://www.instagram.com/p/DgSGhYXjoU9/" target="_blank" rel="noopener">Instagramへ</a></div>
 <div class="an-overlay" id="anOverlay" role="dialog" aria-modal="true" aria-labelledby="anTitle">
 <div class="an-card">
 <button type="button" class="an-close" id="anClose" aria-label="閉じる">×</button>
@@ -67,7 +68,7 @@
 </div>
 </div>
 <script>
-(function(){var o=document.getElementById('anOverlay');document.getElementById('anOpen').addEventListener('click',function(){o.classList.add('open')});document.getElementById('anClose').addEventListener('click',function(){o.classList.remove('open')});o.addEventListener('click',function(e){if(e.target===o)o.classList.remove('open')});document.addEventListener('keydown',function(e){if(e.key==='Escape')o.classList.remove('open')});})();
+(function(){var o=document.getElementById('anOverlay');var b=document.getElementById('anOpen');if(b){b.addEventListener('click',function(){o.classList.add('open')})}document.getElementById('anClose').addEventListener('click',function(){o.classList.remove('open')});o.addEventListener('click',function(e){if(e.target===o)o.classList.remove('open')});document.addEventListener('keydown',function(e){if(e.key==='Escape')o.classList.remove('open')});})();
 </script>
 
 <header class="site-header">
