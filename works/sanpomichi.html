@@ -15,8 +15,12 @@
   h1 { font-size: 30px; font-weight: normal; letter-spacing: .12em; text-shadow: 0 2px 16px rgba(0,0,0,.30); }
   .credit { margin-top: 10px; font-size: 13px; color: #6e6e6e; letter-spacing: .08em; }
   .framing { margin-top: 18px; font-size: 17px; font-weight: 600; color: #5a5a5a; letter-spacing: .06em; line-height: 2; text-align: center; }
-  .note-mark { font-size: 20px; color: #1e1e1e; line-height: 1; margin-bottom: 10px; }
-  .route { margin-top: 26px; font-size: 14px; font-weight: 600; color: #5a5a5a; letter-spacing: .06em; line-height: 2; text-align: center; }
+  .bgm-btn { position: fixed; top: 16px; right: 16px; z-index: 10; width: 52px; height: 52px; border-radius: 50%; border: 1px solid #1e1e1e; background: #fff; color: #1e1e1e; font-size: 20px; font-family: inherit; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
+  .bgm-btn.on { background: #1e1e1e; color: #fff; }
+  .route { margin-top: 48px; width: 100%; max-width: 640px; font-size: 14px; font-weight: 600; color: #5a5a5a; letter-spacing: .06em; }
+  .route-title { font-size: 14px; font-weight: 600; color: #333; letter-spacing: .12em; margin-bottom: 12px; }
+  .route-row { display: flex; line-height: 2; }
+  .route-date { flex: 0 0 6.8em; }
   .frame {
     margin-top: 36px; width: 100%; max-width: 880px;
     border: 2px solid #282828; padding: 6px;
@@ -51,12 +55,11 @@
 </style>
 </head>
 <body>
-  <div class="note-mark">♪</div>
+  <button class="bgm-btn" id="bgmBtn" aria-label="インストBGM切り替え">♪</button>
+  <audio id="bgm" src="sanpomichi_instrumental_web.mp3" loop preload="auto"></audio>
   <h1>さんぽみち</h1>
   <div class="credit">作詞・作曲　大塚陽暉</div>
   <p class="framing">大学生のうちに、初めて一人で作詞作曲した曲です。<br>昔の自分を癒すために作りました。</p>
-
-  <p class="route">2024.2.9　八王子駅でメロディが降ってくる<br>2025.8.5　曲の形が固まる<br>2026.8.17　試作ができる<br>2026.11.14　完成<br>2026.11.28　公開</p>
 
   <div class="frame">
     <div class="stage" id="stage">
@@ -71,6 +74,15 @@
     </button>
   </div>
   <p class="note">ループONのとき、終わると先頭から流れ続けます</p>
+
+  <div class="route">
+    <p class="route-title">完成までの道すじ</p>
+    <p class="route-row"><span class="route-date">2024.2.9</span><span>八王子駅でメロディが降ってくる</span></p>
+    <p class="route-row"><span class="route-date">2025.8.5</span><span>曲の形が固まる</span></p>
+    <p class="route-row"><span class="route-date">2026.8.17</span><span>試作ができる</span></p>
+    <p class="route-row"><span class="route-date">2026.11.14</span><span>完成</span></p>
+    <p class="route-row"><span class="route-date">2026.11.28</span><span>公開</span></p>
+  </div>
 
   <div class="lyric">
     <img src="sanpomichi_lyric_card_clean.png" alt="『さんぽみち』歌詞カード">
@@ -107,6 +119,9 @@
   }
 
   function onState(e) {
+    if (e.data === YT.PlayerState.PLAYING && bgmOn) {
+      setBgm(false);
+    }
     if (e.data === YT.PlayerState.ENDED && loopOn) {
       player.seekTo(0);
       player.playVideo();
@@ -116,6 +131,26 @@
   document.getElementById('loopBtn').addEventListener('click', function () {
     loopOn = !loopOn;
     document.body.classList.toggle('loop-on', loopOn);
+  });
+
+  // インストBGM（右上のボタン）：クリック起点で <audio> を直接再生する
+  var bgm = document.getElementById('bgm');
+  var bgmBtn = document.getElementById('bgmBtn');
+  var bgmOn = false;
+  bgm.volume = 0.25;
+
+  function setBgm(on) {
+    bgmOn = on;
+    bgmBtn.classList.toggle('on', on);
+    if (on) {
+      bgm.play();
+    } else {
+      bgm.pause();
+    }
+  }
+
+  bgmBtn.addEventListener('click', function () {
+    setBgm(!bgmOn);
   });
 </script>
 </body>
