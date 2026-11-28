@@ -44,6 +44,9 @@
 .an-card p{font-size:14.5px;line-height:1.8;margin:0 0 10px}
 .an-ig{display:inline-block;margin-top:12px;background:#2a251d;color:#f6f1e7;text-decoration:none;padding:12px 22px;border-radius:999px;font-size:14.5px}
 .btn-rect{border-radius:8px}
+/* ♪BGMボタン：聴くページ（works/sanpomichi.html）と同一実装。topは固定バナー44px＋固定ヘッダー70pxの下に置くためずらしている */
+.bgm-btn{position:fixed;top:126px;right:16px;z-index:10;width:52px;height:52px;border-radius:50%;border:1px solid #1e1e1e;background:#fff;color:#1e1e1e;font-size:20px;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.bgm-btn.on{background:#1e1e1e;color:#fff}
 .an-close{position:absolute;top:8px;right:12px;background:none;border:0;font-size:24px;line-height:1;cursor:pointer;color:#2a251d;padding:6px}
 </style>
 <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -51,6 +54,8 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 </head>
 <body>
+<button class="bgm-btn" id="bgmBtn" aria-label="インストBGM切り替え">♪</button>
+<audio id="bgm" src="works/sanpomichi_instrumental_web.mp3" loop preload="auto"></audio>
 <button type="button" class="an-banner" id="anOpen">📢 <b>11/28（土）20:00 新作発表</b><span class="an-more">詳しくはこちら</span></button>
 <div class="an-overlay" id="anOverlay" role="dialog" aria-modal="true" aria-labelledby="anTitle">
 <div class="an-card">
@@ -388,6 +393,29 @@
 </footer>
 
 <script src="assets/js/main.js?v=20261110-2"></script>
+<script>
+(function(){
+  // インストBGM（右上のボタン）：クリック起点で <audio> を直接再生する
+  var bgm = document.getElementById('bgm');
+  var bgmBtn = document.getElementById('bgmBtn');
+  var bgmOn = false;
+  bgm.volume = 0.25;
+
+  function setBgm(on) {
+    bgmOn = on;
+    bgmBtn.classList.toggle('on', on);
+    if (on) {
+      bgm.play();
+    } else {
+      bgm.pause();
+    }
+  }
+
+  bgmBtn.addEventListener('click', function () {
+    setBgm(!bgmOn);
+  });
+})();
+</script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d9161e921ee347e1a1ac0f8a796f5710"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
