@@ -22,8 +22,9 @@
     text-align: center; padding: 22px 16px 18px;
   }
   .credit { margin-top: 10px; font-size: 13px; color: #6e6e6e; letter-spacing: .08em; }
-  .framing { margin-top: 40px; font-size: 17px; font-weight: 600; color: #5a5a5a; letter-spacing: .06em; line-height: 2; text-align: center; }
-  .framing-lead { font-size: 14px; font-weight: 400; color: #8f8f8f; }
+  .invite { margin-top: 30px; font-size: 13px; color: #6e6e6e; letter-spacing: .08em; text-align: center; }
+  .invite + .frame { margin-top: 16px; }
+  .framing { margin-top: 40px; font-size: 14px; font-weight: 400; color: #767676; letter-spacing: .06em; line-height: 2; text-align: center; }
   .bgm-btn { position: absolute; top: 50%; right: 16px; transform: translateY(-50%); z-index: 10; width: 52px; height: 52px; border-radius: 50%; border: 1px solid #1e1e1e; background: #fff; color: #1e1e1e; font-size: 20px; font-family: inherit; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
   .bgm-btn.on { background: #1e1e1e; color: #fff; }
   .route { margin-top: 48px; width: 100%; max-width: 640px; font-size: 14px; font-weight: 600; color: #5a5a5a; letter-spacing: .06em; background: #fff; border: 1px solid #d9d9d9; padding: 22px 24px; }
@@ -63,8 +64,7 @@
     .route-date { flex-basis: 6.4em; }
   }
   @media (max-width: 340px) {
-    .framing { font-size: 15px; }
-    .framing-lead { font-size: 12.5px; }
+    .framing { font-size: 13px; }
   }
 </style>
 </head>
@@ -75,6 +75,8 @@
     <button class="bgm-btn" id="bgmBtn" aria-label="インストBGM切り替え">♪</button>
   </div>
   <div class="credit">作詞・作曲　大塚陽暉</div>
+
+  <p class="invite">散歩してるときに聴いてみてください。</p>
 
   <div class="frame">
     <div class="stage" id="stage">
